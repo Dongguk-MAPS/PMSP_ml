@@ -39,7 +39,22 @@ DROP_FEATURES_MA_JM = [
                   'Start_A', 'Start_B',
                   'Tardy_A', 'Tardy_B',
                   ]
-
+CAT_FEATURES_JS_JM = [
+                  'STime_A_VS_B_Avg',
+                  'STime_A_VS_B_Min',
+                  'STime_A_VS_B_Max',
+                  'PTime_A_VS_B_Avg',
+                  'PTime_A_VS_B_Min',
+                  'PTime_A_VS_B_Max',
+                  'Due_A_VS_B'
+                  ]
+CAT_FEATURES_MA_JM = [
+                  'STime_A_VS_B',
+                  'PTime_A_VS_B',
+                  'CompTime_A_VS_B',
+                  'Start_A_VS_B',
+                  'Tardy_A_VS_B'
+                  ]
 
 # Features for Machine Allocation -> Job Sequencing
 FEATURES_JS_MJ = ['Machine', 'Regret', 'NumWaitingJob', 'STime_A', 'STime_B', 'STime_A_VS_B', 'PTime_A', 'PTime_B',
@@ -52,6 +67,9 @@ def add_row_js(df: pd.DataFrame, prob: Instance, Job_A: Job, Job_B: Job, regret:
 
     if JS_FIRST:
         row['NumWaitingJob'] = len([job for job in prob.job_list if job.complete is False])
+        # row['TimeNow'] = 0 # 가장 먼저 끝난 작업의 시간
+        # row['NextStartTime'] = 0 # 가장 빨리 시작할 수 있는 기계의 시작시간
+        # row['NumTardyJobs'] = 0 # 현재 이미 늦은 작업의 수
 
         jobA_setups = Job_A.get_setups(prob.machine_list)
         jobB_setups = Job_B.get_setups(prob.machine_list)
@@ -99,8 +117,8 @@ def add_row_js(df: pd.DataFrame, prob: Instance, Job_A: Job, Job_B: Job, regret:
     if no_label is True:
         for k in DROP_FEATURES_JS_JM:
             row.pop(k, None)
-        values = list(row.values())
-        return values
+    #     values = list(row.values())
+    #     return values
 
     df = pd.concat([df, pd.DataFrame.from_records([row])], ignore_index=True)
     return df
@@ -148,8 +166,8 @@ def add_row_ma(df: pd.DataFrame, prob: Instance, Mch_A: Machine, Mch_B: Machine,
     if no_label is True:
         for k in DROP_FEATURES_MA_JM:
             row.pop(k, None)
-        values = list(row.values())
-        return values
+        # values = list(row.values())
+        # return values
 
     # df = df.append(row, ignore_index=True)
     df = pd.concat([df, pd.DataFrame.from_records([row])], ignore_index=True)
@@ -331,4 +349,3 @@ def retrieve_decisions_rh(_prob: Instance, js_path: str ='datasets/js.csv', ma_p
     export_files(df_js, js_path, df_ma, ma_path)
 
     return result
-#sad

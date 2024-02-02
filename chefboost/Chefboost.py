@@ -25,6 +25,7 @@ def fit(
     target_label: str = "Decision",
     validation_df: Optional[pd.DataFrame] = None,
     silent: bool = False,
+    name: str = None
 ) -> Dict[str, Any]:
     """
     Build (a) decision tree model(s)
@@ -265,11 +266,11 @@ def fit(
         )
     else:  # regular decision tree building
         root = 1
-        file = "outputs/rules/rules.py"
+        file = "outputs/rules/{0}.py".format(name)
         functions.createFile(file, header)
 
         if enableParallelism == True:
-            json_file = "outputs/rules/rules.json"
+            json_file = "outputs/rules/{0}.json".format(name)
             functions.createFile(json_file, "[\n")
 
         trees = Training.buildDecisionTree(
@@ -283,6 +284,7 @@ def fit(
             parents="root",
             validation_df=validation_df,
             main_process_id=process_id,
+            name=name
         )
 
     if silent is False:
