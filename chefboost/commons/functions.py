@@ -136,14 +136,15 @@ def initializeFolders() -> None:
 
         if path.exists(outputs_path + "rules"):
             for file in os.listdir(outputs_path + "rules"):
-                if (
-                    ".py" in file
-                    or ".json" in file
-                    or ".txt" in file
-                    or ".pkl" in file
-                    or ".csv" in file
-                ):
-                    os.remove(outputs_path + "rules" + os.path.sep + file)
+                pass
+                # if (
+                #     ".py" in file
+                #     or ".json" in file
+                #     or ".txt" in file
+                #     or ".pkl" in file
+                #     or ".csv" in file
+                # ):
+                #     os.remove(outputs_path + "rules" + os.path.sep + file)
     except Exception as err:
         logger.warn(str(err))
 

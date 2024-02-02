@@ -51,9 +51,7 @@ def cp_scheduling(_prob: Instance, time_limit=300, init_sol: Schedule = None):
             stp.add_interval_var_solution(processing_itv_vars[bar.job.ID][bar.machine], presence=True, start=bar.start, end= bar.end)
         mdl.set_starting_point(stp)
 
-    # msol = mdl.solve(TimeLimit=time_limit)  # log_output=True
-    msol = mdl.solve(TimeLimit=time_limit,
-                     execfile='/Applications/CPLEX_Studio2211/cpoptimizer/bin/arm64_osx/cpoptimizer') #for mac
+    msol = mdl.solve(TimeLimit=time_limit)  # log_output=True
     print("Solution: ")
     msol.print_solution()
 
@@ -100,7 +98,9 @@ def cp_scheduling_subprob(_prob: Instance, time_limit=300):
     prob.machine_list = sorted((mch for mch in prob.machine_list), key=lambda m: m.ID)
 
     processing_itv_vars = [[mdl.interval_var(optional=True, size=processingTimes[m][j], name="interval_job{}_machine{}".format(j, m)) for m in machines] for j in jobs]
-
+    a = interval_var(length=10, start=5)
+    a.size = 10
+    a.start = 10
 
     for j in jobs:
         mdl.add(mdl.sum([mdl.presence_of(processing_itv_vars[j][m]) for m in machines]) == 1)
@@ -138,8 +138,6 @@ def cp_scheduling_subprob(_prob: Instance, time_limit=300):
     mdl.add(mdl.minimize(objective))
 
     msol = mdl.solve(TimeLimit=time_limit)  # log_output=True
-    msol = mdl.solve(TimeLimit=time_limit,
-                     execfile='/Applications/CPLEX_Studio2211/cpoptimizer/bin/arm64_osx/cpoptimizer')  # for mac
     print("Solution: ")
     msol.print_solution()
     if msol.solve_status != 'Optimal' and msol.solve_status != 'Feasible':

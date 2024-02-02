@@ -428,6 +428,7 @@ def buildDecisionTree(
     tree_id: int = 0,
     validation_df: Optional[pd.DataFrame] = None,
     main_process_id: Optional[int] = None,
+    name:str = None
 ) -> list:
     """
     Build a decition tree rules
@@ -707,7 +708,7 @@ def buildDecisionTree(
         ):
             # this is reguler decision tree. find accuracy here.
 
-            module_name = "outputs/rules/rules"
+            module_name = "outputs/rules/{0}".format(name)
             myrules = load_module(module_name)  # rules0
             models.append(myrules)
 

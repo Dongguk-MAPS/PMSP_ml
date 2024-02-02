@@ -18,28 +18,45 @@ import csv
 
 if __name__ == '__main__':
     record = []
-    model_js_binary, model_js, model_ma_binary, model_ma = learn_model_sep()
-    for i in range(30):
-        numJob = random.randint(10, 20)
 
-        test_instance = generate_prob(numJob=numJob, numMch=3, tau=0.2)
-        # test_instance.saveFile('datasets/train/pmsp_sdst_{0}.prob'.format(i+1))
-        test_instance.loadFile('datasets/train/pmsp_sdst_{0}.prob'.format(i+1))
-        schedule_ml = ml_scheduling_sep(test_instance, model_js_binary, model_js, model_ma_binary, model_ma, 'DT')
+    # model_js_binary, model_js, model_ma_binary, model_ma = learn_model_sep()
+    df_js = pd.read_csv('datasets/js.csv', encoding_errors='ignore')
+    df_ma = pd.read_csv('datasets/ma.csv', encoding_errors='ignore')
+    df_js = df_js.drop(columns=retrieval.DROP_FEATURES_JS_JM)
+    df_ma = df_ma.drop(columns=retrieval.DROP_FEATURES_MA_JM)
 
-        schedule_rh = retrieve_decisions_rh(test_instance)
+    trials = []
+    for j in range(100):
+        col_js = list(df_js.columns)
+        col_ma = list(df_ma.columns)
+        chromo_js = Chromosome(col_js, df_js, cat_names=retrieval.CAT_FEATURES_JS_JM)
+        chromo_ma = Chromosome(col_ma, df_ma, cat_names=retrieval.CAT_FEATURES_MA_JM)
+        model_js, model_ma = learn_model(discretize=True, chromo=[chromo_js, chromo_ma])
+        record = []
+        for i in range(30):
+            numJob = random.randint(10, 20)
+            test_instance = generate_prob(numJob=numJob, numMch=3, tau=0.2)
+            # test_instance.saveFile('datasets/train/pmsp_sdst_{0}.prob'.format(i+1))
+            test_instance.loadFile('datasets/train/pmsp_sdst_{0}.prob'.format(i+1))
+            # schedule_ml = ml_scheduling_sep(test_instance, model_js_binary, model_js, model_ma_binary, model_ma, 'DT')
+            schedule_ml = ml_scheduling(test_instance, model_js, model_ma, 'DT', chromo=[chromo_js, chromo_ma])
+            record.append(schedule_ml.objective)
+        trials.append((sum(record)/len(record)))
+
+
+        # schedule_rh = retrieve_decisions_rh(test_instance)
         # new_instance = generate_prob(numJob=5, numMch=3, tau=0.2)
         # new_instance.loadFile('datasets/train/pmsp_sdst_{0}.prob'.format(i+1))
 
         # schedule = heuristic.scheduling(test_instance, 'MST')
         # schedule = milp_scheduling(test_instance)
         schedule_mst = scheduling(test_instance, 'MST')
-        schedule_cp = cp_scheduling(test_instance, time_limit=3600, init_sol=schedule_mst)
+        # schedule_cp = cp_scheduling(test_instance, time_limit=3600, init_sol=schedule_mst)
         schedule_spt = scheduling(test_instance, 'SPT')
         schedule_rnd = scheduling(test_instance, 'RND')
 
         # record.append([schedule_cp.objective, schedule_spt.objective, schedule_mst.objective, schedule_rnd.objective, schedule_ml.objective])
-        record.append([schedule_rh.objective, schedule_cp.objective, schedule_spt.objective, schedule_mst.objective, schedule_rnd.objective])
+        record.append([schedule_ml.objective, schedule_mst.objective, schedule_spt.objective, schedule_rnd.objective])
         # result = schedule_cp
         # cp_initial = result.objective
         # imp_cnt = 0
