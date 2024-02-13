@@ -14,7 +14,8 @@ setup(
     url='https://github.com/Dongguk-MAPS/PMSP_ml',
     license='MIT',
     install_requires=[
-        'docplex','pickle','numpy'
+        'docplex','pickle','numpy','random','matplotlib','List','copy','pulp','pandas','gurobi','csv','itertools',
+        'pylab','ortools'
         # 사용하는 패키지 추가
     ],
 )

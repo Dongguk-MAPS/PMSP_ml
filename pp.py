@@ -10,6 +10,7 @@ def pulp_scheduling(prob:Instance):
     SM = range(0, prob.numMch)
     s = prob.setup
     p = prob.ptime
+    d = prob.job_list
     M = 0
     max_s = np.array(s).max()
     for i in SJ:
@@ -25,6 +26,7 @@ def pulp_scheduling(prob:Instance):
     y_ik = {(i, k): pl.LpVariable(name=('Y_' + str(i) + '_' + str(k)), lowBound=0, cat=pl.LpBinary) for i in SJ for k in SM}
     z_ijk = {(i, j, k): pl.LpVariable(name=('Z_' + str(i) + '_' + str(j) + '_' + str(k)), lowBound=0, cat=pl.LpBinary) for i in SJ for j in SJ for k
              in SM if i < j}
+    T_i = {i: pl.LpVariable(name=f'T_{i}', lowBound=0, cat=pl.LpContinuous) for i in SJ}
 
     for i in SJ:
         for k in SM:
@@ -45,8 +47,11 @@ def pulp_scheduling(prob:Instance):
 
     for i in SJ:
         model += pl.lpSum(C_ik[i, k] for k in SM) <= C_i[i], f"constraint_6_{i}"
+    for i in SJ:
+        for k in SM:
+            model += C_ik[i, k] - d[i].due <= T_i[i], f"constraint_7_{i}_{k}"
 
-    model += pl.lpSum(C_i[i] for i in SJ)
+    model += pl.lpSum(T_i[i] for i in SJ)
     solver = pl.getSolver('PULP_CBC_CMD', timeLimit=3600)
     result = model.solve(solver)
     return model
