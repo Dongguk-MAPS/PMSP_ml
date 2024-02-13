@@ -10,6 +10,7 @@ def milp_scheduling(prob:Instance):
     SM = range(0, prob.numMch)
     s = prob.setup
     p = prob.ptime
+    d = prob.job_list
     M = 0
     max_s = np.array(s).max()
     for i in SJ:
@@ -25,6 +26,7 @@ def milp_scheduling(prob:Instance):
     y_ik = {(i, k): model.binary_var(name='y_' + str(i) + '_' + str(k)) for i in SJ for k in SM}
     z_ijk = {(i, j, k): model.binary_var(name='z_' + str(i) + '_' + str(j) + '_' + str(k)) for i in SJ for j in SJ for k
              in SM if i < j}
+    T_i = {(i): model.continuous_var(lb=0, name='T_' + str(i) ) for i in SJ}
 
     constraint_1 = {(i, k): model.add_constraint(
         ct=C_ik[i, k] + S_ik[i, k] <= M * y_ik[i, k],
@@ -49,9 +51,13 @@ def milp_scheduling(prob:Instance):
     constraint_6 = {(i): model.add_constraint(
         ct=model.sum(C_ik[i, k] for k in SM) <= C_i[i],
         ctname="constraint_6_{0}".format(i)) for i in SJ}
+    constraint_7 = {(i): model.add_constraint(
+        ct = T_i[i] >= C_i[i] - d[i].due,
+        ctname="constraint_7_{0}".format(i)) for i in SJ}
+
 
     # 목적함수
-    model.minimize(model.sum(C_i[i] for i in SJ))
+    model.minimize(model.sum(T_i[i] for i in SJ))
     model.set_time_limit(300)
     result = model.solve(log_output=True)
     print('Cplex Objective - '+ str(result.objective_value))
@@ -69,7 +75,7 @@ def milp_scheduling(prob:Instance):
     for i in SJ:
        for k in SM:
            if round(result.get_value(y_ik[i, k])) > 0:
-               print('Job {0} on Machine {1} completed at {2}'.format(i, k, int(result.get_value(C_ik[i, k]))))
+               print('Job {0} on Machine {1} completed at {2} and T : {3} '.format(i, k, int(result.get_value(C_ik[i, k])),result.get_value(T_i[i])))
                job_i = prob.findJob(i)
                job_i.end = result.get_value(C_ik[i, k])
                MA[k].append(job_i)
@@ -114,6 +120,7 @@ def milp_scheduling_ortools(prob:Instance):
     SM = range(0, prob.numMch)
     s = prob.setup
     p = prob.ptime
+    d = prob.job_list
     M = 0
     max_s = np.array(s).max()
     for i in SJ:
@@ -127,6 +134,7 @@ def milp_scheduling_ortools(prob:Instance):
     S_ik ={(i,k): solver.NumVar(0, infinity, 'S_' + str(i) + '_' + str(k)) for i in SJ for k in SM}
     y_ik ={(i,k): solver.IntVar(0, 1, 'y_' + str(i) + '_' + str(k)) for i in SJ for k in SM}
     z_ijk ={(i,j,k) : solver.IntVar(0, 1, 'z_' + str(i) + '_' + str(j) + '_' + str(k)) for i in SJ for j in SJ for k in SM}
+    T_i = {i: solver.NumVar(0, infinity, 'T_' + str(i)) for i in SJ}
 
     # Add Constraints
     constraint_1 = {(i,k) : solver.Add(C_ik[i,k] + S_ik[i,k] <= M * y_ik[i,k]) for i in SJ for k in SM }
@@ -135,8 +143,9 @@ def milp_scheduling_ortools(prob:Instance):
     constraint_4 = {(i,j,k) : solver.Add(S_ik[j,k] >= C_ik[i,k] + s[k][i][j] * y_ik[i,k] - M2 * (1 - z_ijk[i,j,k])) for k in SM for i in SJ for j in SJ if i < j}
     constraint_5 = {(i) : solver.Add(solver.Sum(y_ik[i,k] for k in SM) == 1) for i in SJ}
     constraint_6 = {(i) : solver.Add(solver.Sum(C_ik[i,k] for k in SM) <= C_i[i]) for i in SJ}
+    constraint_7 = {(i): solver.Add(p[k][i] - d[i].due <= T_i[i]) for i in SJ for k in SM}
 
-    solver.Minimize(sum([C_i[i] for i in SJ]))
+    solver.Minimize(sum([T_i[i] for i in SJ]))
     solver.set_time_limit(300*1000)
     solver.EnableOutput()
     status = solver.Solve()

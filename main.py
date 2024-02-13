@@ -18,7 +18,7 @@ import csv
 
 if __name__ == '__main__':
     record = []
-
+    """
     # model_js_binary, model_js, model_ma_binary, model_ma = learn_model_sep()
     df_js = pd.read_csv('datasets/js.csv', encoding_errors='ignore')
     df_ma = pd.read_csv('datasets/ma.csv', encoding_errors='ignore')
@@ -42,21 +42,28 @@ if __name__ == '__main__':
             schedule_ml = ml_scheduling(test_instance, model_js, model_ma, 'DT', chromo=[chromo_js, chromo_ma])
             record.append(schedule_ml.objective)
         trials.append((sum(record)/len(record)))
-
-
+        """
+    for i in range(100):
+        test_instance = generate_prob(numJob=5, numMch=3, tau=0.2)
+        test_instance.loadFile('datasets/train/pmsp_sdst_{0}.prob'.format(i + 1))
         # schedule_rh = retrieve_decisions_rh(test_instance)
         # new_instance = generate_prob(numJob=5, numMch=3, tau=0.2)
         # new_instance.loadFile('datasets/train/pmsp_sdst_{0}.prob'.format(i+1))
 
         # schedule = heuristic.scheduling(test_instance, 'MST')
         # schedule = milp_scheduling(test_instance)
-        schedule_mst = scheduling(test_instance, 'MST')
+        # schedule_mst = scheduling(test_instance, 'MST')
         # schedule_cp = cp_scheduling(test_instance, time_limit=3600, init_sol=schedule_mst)
-        schedule_spt = scheduling(test_instance, 'SPT')
-        schedule_rnd = scheduling(test_instance, 'RND')
+        # schedule_spt = scheduling(test_instance, 'SPT')
+        # schedule_rnd = scheduling(test_instance, 'RND')
+        # schedule_edd = scheduling(test_instance, 'EDD')
+        # schedule_lpt = scheduling(test_instance, 'LPT')
+        schedule_cbc = pulp_scheduling(test_instance)
+        schedule_gurobi = gurobi_milp(test_instance)
+        schedule_ortools_cp = cp_scheduling_ortools(test_instance)
 
         # record.append([schedule_cp.objective, schedule_spt.objective, schedule_mst.objective, schedule_rnd.objective, schedule_ml.objective])
-        record.append([schedule_ml.objective, schedule_mst.objective, schedule_spt.objective, schedule_rnd.objective])
+        record.append([schedule_cbc])
         # result = schedule_cp
         # cp_initial = result.objective
         # imp_cnt = 0
@@ -85,13 +92,4 @@ if __name__ == '__main__':
     #        labels=["Very bad", "Bad", "Average", "good", "Very good", "Excellent"])
     # this_bps = np.unique(data[:, attr.id]).tolist()
 
-    #schedule.print_schedule()
-    #draw_gantt_chart(schedule, test_instance)
 
-    # schedule = milp_scheduling(test_instance)
-    # schedule.print_schedule()
-    #draw_gantt_chart(schedule, test_instance)
-
-    # schedule = cp_scheduling(test_instance)
-    # schedule = milp_scheduling_ortools(test_instance)
-    # schedule = cp_scheduling_ortools(test_instance)

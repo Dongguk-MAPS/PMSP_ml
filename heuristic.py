@@ -12,6 +12,14 @@ def scheduling(_prob: Instance, rule: str) -> Schedule:
 
     prob = copy.deepcopy(_prob)
 
+    def normalize_weights(n:int):
+        list_weights= []
+        for i in range(n):
+            list_weights.append(random.uniform(0, 10))
+        total = sum(list_weights)  # 가중치의 합 계산
+        normalized_weights = [weight / total for weight in list_weights]
+        return normalized_weights
+
     def update_priority(job_list, mch_list):
         for j in job_list:
             if j.complete is False:
@@ -22,6 +30,31 @@ def scheduling(_prob: Instance, rule: str) -> Schedule:
                     j.priority = min(mch_list, key=lambda m: m.available).ptime[j.ID]
                 elif rule == 'MST':  # This is an example of MST (Minimum Setup Time)
                     j.priority = min(mch_list, key=lambda m: m.available).get_setup(j)
+                elif rule == 'LPT':
+                    j.priority = -min(mch_list, key=lambda m: m.available).ptime[j.ID]
+                elif rule == 'SECT':
+                    if min(mch_list, key=lambda m: m.available) == 0 :
+                        j.priority = min(mch_list, key=lambda m: m.available).ptime[j.ID]
+                    else:
+                        j.priority = min(mch_list, key=lambda m: m.available).ptime[j.ID] + \
+                                     min(mch_list, key=lambda m: m.available).get_setup[j]
+                elif rule == 'mix':
+                    weight = normalize_weights(len(job_list))
+                    sum_value = 0
+
+                    spt = min(mch_list, key=lambda m: m.available).ptime[j.ID]
+                    mst = min(mch_list, key=lambda m: m.available).get_setup(j)
+                    lpt = -min(mch_list, key=lambda m: m.available).ptime[j.ID]
+                    if min(mch_list, key=lambda m: m.available) == 0:
+                        sect = min(mch_list, key=lambda m: m.available).ptime[j.ID]
+                    else:
+                        sect = min(mch_list, key=lambda m: m.available).ptime[j.ID] + \
+                                     min(mch_list, key=lambda m: m.available).get_setup[j]
+                    method_value=[spt,mst,lpt,sect]
+                    for n in range(len(weight)):
+                        sum_value += weight[n] * method_value[n]
+                    j.priority = sum_value
+
                 else: # If there is no rule, randomly select
                     j.priority = random.uniform(0.0, 1.0)
         return sorted((job for job in job_list if job.complete is False), key=lambda j: j.priority)

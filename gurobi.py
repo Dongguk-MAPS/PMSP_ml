@@ -11,6 +11,7 @@ def gurobi_milp(prob:Instance, opt_model=None):
     SM = range(0, prob.numMch)
     s = prob.setup
     p = prob.ptime
+    d = prob.job_list
     M = 0
     max_s = np.array(s).max()
     for i in SJ:
@@ -26,6 +27,8 @@ def gurobi_milp(prob:Instance, opt_model=None):
     S_ik = {(i, k): opt_model.addVar(vtype=grb.GRB.CONTINUOUS, lb=0, name="S_{0}_{1}".format(i, k)) for i in SJ for k in SM}
     y_ik = {(i, k): opt_model.addVar(vtype=grb.GRB.BINARY, name="y_{0}_{1}".format(i, k))for i in SJ for k in SM}
     z_ijk = {(i,j,k): opt_model.addVar(vtype=grb.GRB.BINARY, name="z_{0}_{1}_{2}".format(i,j,k)) for i in SJ for j in SJ for k in SM if i<j}
+    T_i = {(i): opt_model.addVar(vtype=grb.GRB.CONTINUOUS, name="T_{0}".format(i)) for i in SJ}
+
 
     #제약조건
     constraint_1 = {(i, k): opt_model.addConstr(lhs=(C_ik[i, k] + S_ik[i,k]),sense=grb.GRB.LESS_EQUAL,rhs=M * y_ik[i, k],
@@ -38,7 +41,8 @@ def gurobi_milp(prob:Instance, opt_model=None):
                                     rhs=C_ik[i, k] + s[k][i][j]*y_ik[i,k] - M2*(1 - z_ijk[i,j,k]), name="constraint4_{0}_{1}_{2}".format(i, j, k)) for k in SM for i in SJ for j in SJ if i < j}
     constraint_5 = {i :opt_model.addConstr(lhs=grb.quicksum(y_ik[i, k] for k in SM),sense=grb.GRB.EQUAL,rhs=1,name="constraint5_{0}".format(i)) for i in SJ}
     constraint_6 = {i: opt_model.addConstr(lhs=grb.quicksum(C_ik[i, k] for k in SM),sense=grb.GRB.LESS_EQUAL, rhs=C_i[i], name="constraint6_{0}".format(i)) for i in SJ}
-
+    constraint_7 = {i: opt_model.addConstr(lhs=(p[k][i] - d[i].due), sense=grb.GRB.LESS_EQUAL, rhs=T_i[i],
+                                           name="constraint7_{0}_{1}".format(i, k)) for i in SJ for k in SM}
     #목적함수
     objective = grb.quicksum(C_i[i] for i in SJ)
 

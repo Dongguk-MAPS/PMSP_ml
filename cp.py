@@ -172,6 +172,7 @@ def cp_scheduling_subprob(_prob: Instance, time_limit=300):
 def cp_scheduling_ortools(prob: Instance):
     jobs = [*range(0, prob.numJob)]
     machines = [*range(0, prob.numMch)]
+    d = prob.job_list
     setup_matrix = prob.setup
     processingTimes = prob.ptime
     H = 100000000000000
@@ -218,7 +219,7 @@ def cp_scheduling_ortools(prob: Instance):
             alt_intvs.append(presence_vars[m][j])
         model.Add(cp_model.LinearExpr.Sum(alt_intvs) == 1)
 
-    objective = cp_model.LinearExpr.Sum([end_vars[m][j] for j in jobs for m in machines])
+    objective = cp_model.LinearExpr.Sum([end_vars[m][j]-d[j].due for j in jobs for m in machines])
     model.Minimize(objective)
     solver = cp_model.CpSolver()
     solver.parameters.max_time_in_seconds = 300
