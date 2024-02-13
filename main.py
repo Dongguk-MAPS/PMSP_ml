@@ -43,7 +43,7 @@ if __name__ == '__main__':
             record.append(schedule_ml.objective)
         trials.append((sum(record)/len(record)))
         """
-    for i in range(100):
+    for i in range(30):
         test_instance = generate_prob(numJob=5, numMch=3, tau=0.2)
         test_instance.loadFile('datasets/train/pmsp_sdst_{0}.prob'.format(i + 1))
         # schedule_rh = retrieve_decisions_rh(test_instance)
@@ -57,13 +57,14 @@ if __name__ == '__main__':
         # schedule_spt = scheduling(test_instance, 'SPT')
         # schedule_rnd = scheduling(test_instance, 'RND')
         # schedule_edd = scheduling(test_instance, 'EDD')
-        # schedule_lpt = scheduling(test_instance, 'LPT')
-        schedule_cbc = pulp_scheduling(test_instance)
-        schedule_gurobi = gurobi_milp(test_instance)
-        schedule_ortools_cp = cp_scheduling_ortools(test_instance)
+        schedule_lpt = scheduling(test_instance, 'LPT')
+        schedule_sect = scheduling(test_instance, 'SECT')
+        # schedule_cbc = pulp_scheduling(test_instance)
+        # schedule_gurobi = gurobi_milp(test_instance)
+        # schedule_ortools_cp = cp_scheduling_ortools(test_instance)
 
         # record.append([schedule_cp.objective, schedule_spt.objective, schedule_mst.objective, schedule_rnd.objective, schedule_ml.objective])
-        record.append([schedule_cbc])
+        record.append([schedule_sect.objective,schedule_lpt.objective])
         # result = schedule_cp
         # cp_initial = result.objective
         # imp_cnt = 0
