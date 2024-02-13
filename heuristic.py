@@ -36,8 +36,7 @@ def scheduling(_prob: Instance, rule: str) -> Schedule:
                     if min(mch_list, key=lambda m: m.available) == 0 :
                         j.priority = min(mch_list, key=lambda m: m.available).ptime[j.ID]
                     else:
-                        j.priority = min(mch_list, key=lambda m: m.available).ptime[j.ID] + \
-                                     min(mch_list, key=lambda m: m.available).get_setup[j]
+                        j.priority = min(mch_list, key=lambda m: m.available).ptime[j.ID] + min(mch_list, key=lambda m: m.available).get_setup(j)
                 elif rule == 'mix':
                     weight = normalize_weights(len(job_list))
                     sum_value = 0
