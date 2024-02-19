@@ -14,6 +14,7 @@ import typing
 from retrieval import *
 from ml_heuristic import *
 from statistics import mean
+from WeightSum import *
 import csv
 
 if __name__ == '__main__':
@@ -25,17 +26,22 @@ if __name__ == '__main__':
     df_js = df_js.drop(columns=retrieval.DROP_FEATURES_JS_JM)
     df_ma = df_ma.drop(columns=retrieval.DROP_FEATURES_MA_JM)
 
+    EDD_weight = 0.25
+    SPT_weight = 0.25
+    MST_weight = 0.25
+    LPT_weight = 0.25
+
     trials = []
-    for j in range(100):
+    for j in range(1):
         col_js = list(df_js.columns)
         col_ma = list(df_ma.columns)
         chromo_js = Chromosome(col_js, df_js, cat_names=retrieval.CAT_FEATURES_JS_JM)
         chromo_ma = Chromosome(col_ma, df_ma, cat_names=retrieval.CAT_FEATURES_MA_JM)
         model_js, model_ma = learn_model(discretize=True, chromo=[chromo_js, chromo_ma])
         record = []
-        for i in range(30):
+        for i in range(1):
             numJob = random.randint(10, 20)
-            test_instance = generate_prob(numJob=numJob, numMch=3, tau=0.2)
+            test_instance = generate_prob(numJob=8, numMch=3, tau=0.2)
             # test_instance.saveFile('datasets/train/pmsp_sdst_{0}.prob'.format(i+1))
             test_instance.loadFile('datasets/train/pmsp_sdst_{0}.prob'.format(i+1))
             # schedule_ml = ml_scheduling_sep(test_instance, model_js_binary, model_js, model_ma_binary, model_ma, 'DT')
@@ -54,6 +60,7 @@ if __name__ == '__main__':
         # schedule = milp_scheduling(test_instance)
         # schedule_mst = scheduling(test_instance, 'MST')
         # schedule_cp = cp_scheduling(test_instance, time_limit=3600, init_sol=schedule_mst)
+<<<<<<< HEAD
         # schedule_spt = scheduling(test_instance, 'SPT')
         # schedule_rnd = scheduling(test_instance, 'RND')
         # schedule_edd = scheduling(test_instance, 'EDD')
@@ -62,6 +69,13 @@ if __name__ == '__main__':
         # schedule_cbc = pulp_scheduling(test_instance)
         # schedule_gurobi = gurobi_milp(test_instance)
         # schedule_ortools_cp = cp_scheduling_ortools(test_instance)
+=======
+        schedule_spt = scheduling(test_instance, 'SPT')
+        schedule_rnd = scheduling(test_instance, 'RND')
+        optimal_weights, optimal_score = local_search(test_instance=test_instance, iterations=1000, change_factor=0.1,
+                                                      temperature=1.0)
+        schedule_mix = scheduling(test_instance, 'MIX', optimal_weights)
+>>>>>>> f65158b (feat: local search)
 
         # record.append([schedule_cp.objective, schedule_spt.objective, schedule_mst.objective, schedule_rnd.objective, schedule_ml.objective])
         record.append([schedule_sect.objective,schedule_lpt.objective])
@@ -83,6 +97,7 @@ if __name__ == '__main__':
         #             print('Check - Reinitiate the warm-start process with result')
 
     print(*map(mean, zip(*record)))
+    print(record)
     with open('out.csv', 'w', newline='') as f:
         writer = csv.writer(f)
         writer.writerows(record)

@@ -1,0 +1,8 @@
+
+fpython:S2208"GImport only needed names or import the module and then use its members.(ÀÒš8ÍıŞÜ1
+spython:S3776"TRefactor this function to reduce its Cognitive Complexity from 22 to the 15 allowed.(í÷Ò¨8ÎıŞÜ1
+{python:S117 "]Rename this local variable "priority_EDD" to match the regular expression ^[_a-z][a-z0-9_]*$.(ºÀ“–8ÎıŞÜ1
+€python:S117#"]Rename this local variable "priority_LPT" to match the regular expression ^[_a-z][a-z0-9_]*$.(Æ…¾ûùÿÿÿÿ8ÎıŞÜ1
+{python:S117""]Rename this local variable "priority_MST" to match the regular expression ^[_a-z][a-z0-9_]*$.(²¢8ÎıŞÜ1
+€python:S117!"]Rename this local variable "priority_SPT" to match the regular expression ^[_a-z][a-z0-9_]*$.(ŞŸšçıÿÿÿÿ8ÎıŞÜ1
+Bpython:S125"Remove this commented out code.(·š•Şşÿÿÿÿ8ÎıŞÜ1

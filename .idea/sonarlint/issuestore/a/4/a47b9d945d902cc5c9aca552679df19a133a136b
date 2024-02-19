@@ -1,0 +1,24 @@
+
+hpython:S1192ã"JDefine a constant instead of duplicating this literal 'Less_14.5' 4 times.(»Ã§øÿÿÿÿ
+cpython:S11929"KDefine a constant instead of duplicating this literal 'Less_-26.5' 3 times.(¹áéÛ
+wpython:S1192£"YDefine a constant instead of duplicating this literal 'Less_-3.1666666666666643' 6 times.(²Ñ¡ùÿÿÿÿ
+hpython:S1192q"KDefine a constant instead of duplicating this literal 'Less_-61.5' 3 times.(ßüÙñüÿÿÿÿ
+hpython:S1192“"JDefine a constant instead of duplicating this literal 'Less_43.5' 4 times.(ï©·äşÿÿÿÿ
+opython:S1192¡"VDefine a constant instead of duplicating this literal 'Less_9.66666666666667' 6 times.(÷â¸ã
+hpython:S1192"KDefine a constant instead of duplicating this literal 'Less_19.5' 14 times.(´“øËÿÿÿÿÿ
+xpython:S1192Ï"ZDefine a constant instead of duplicating this literal 'Greater_42.49999999999999' 3 times.(—®àÜûÿÿÿÿ
+bpython:S1192u"JDefine a constant instead of duplicating this literal 'Less_-3.5' 3 times.(ÁÅ¯¸
+gpython:S11921"JDefine a constant instead of duplicating this literal 'Less_15.5' 6 times.(¿è®ıüÿÿÿÿ
+bpython:S1192"JDefine a constant instead of duplicating this literal 'Less_4.5' 17 times.(¤–Óœ
+epython:S11923"MDefine a constant instead of duplicating this literal 'Greater_15.5' 6 times.(ëÑÀ¾
+wpython:S1192§"YDefine a constant instead of duplicating this literal 'Less_-11.166666666666664' 5 times.(¸ñ®„øÿÿÿÿ
+gpython:S1192"JDefine a constant instead of duplicating this literal 'Less_61.5' 5 times.(çÍ´÷ùÿÿÿÿ
+wpython:S1192¥"YDefine a constant instead of duplicating this literal 'Greater_9.66666666666667' 5 times.(¿ŒŸñúÿÿÿÿ
+hpython:S1192["KDefine a constant instead of duplicating this literal 'Less_-12.5' 3 times.(®õíåıÿÿÿÿ
+opython:S1192	"WDefine a constant instead of duplicating this literal 'Less_42.49999999999999' 6 times.(Šøú¤
+ppython:S1192"XDefine a constant instead of duplicating this literal 'Less_-8.999999999999996' 4 times.(Ş¨¿˜
+cpython:S1192"KDefine a constant instead of duplicating this literal 'Less_-46.5' 3 times.(…·¯ö
+epython:S1192"MDefine a constant instead of duplicating this literal 'Greater_19.5' 3 times.(º«èÖ
+opython:S1542"RRename function "findDecision" to match the regular expression ^[a-z_][a-z0-9_]*$.(ğºšúÿÿÿÿ
+rpython:S3776"URefactor this function to reduce its Cognitive Complexity from 523 to the 15 allowed.(ğºšúÿÿÿÿ
+kpython:S3923Ï"RRemove this if statement or edit its code blocks so that they're not all the same.(Šøú¤
