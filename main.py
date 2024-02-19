@@ -14,6 +14,7 @@ import typing
 from retrieval import *
 from ml_heuristic import *
 from statistics import mean
+from localSearch import *
 import csv
 
 if __name__ == '__main__':
@@ -190,3 +191,25 @@ if __name__ == '__main__':
     # schedule = cp_scheduling(test_instance)
     # schedule = milp_scheduling_ortools(test_instance)
     # schedule = cp_scheduling_ortools(test_instance)
+
+    """
+     Mixed Dispatching Rule sample code
+     현재 로컬서치는 simulated annealing을 사용하고 있습니다.
+    """
+    results = {}
+    mix_list = []
+    weights_list = []
+    test_instance_lst = []
+
+    for index in range(1, 11):
+        test_instance = generate_prob(numJob=8, numMch=3, tau=0.2)
+        test_instance.loadFile(f'datasets/train_small/pmsp_sdst_{index}.prob')
+        test_instance_lst.append(test_instance)
+
+    score_lst = []
+    for i in range(10):
+        optimal_weights, optimal_score = local_search(test_instance_lst=test_instance_lst, iterations=1000,
+                                                      change_factor=0.1, temperature=1.0)
+        score_lst.append(optimal_score)
+
+    print(find_average(score_lst))
