@@ -1,3 +1,5 @@
+import copy
+import math
 import random
 from typing import List
 from itertools import combinations, tee
@@ -6,6 +8,7 @@ import numpy as np
 
 MIN_DIST_BPS = False
 RANGE_TOLERANCE = 1.0
+POINT_STRIDE = 5
 
 def check_distance(bps: List[float], bound_dist: float) -> bool:
     result = True
@@ -27,17 +30,36 @@ def pairwise(iterable):
 class Gene:
     def __init__(self, feature_name: str, df_id:int, max_disc: int = 3, uniq_vals = List[float]):
         self.feature = feature_name
-        self.disc_num = random.randint(2, max_disc)
+        if self.feature == 'Regret':
+            self.disc_num = random.randint(2, max_disc)
+        else:
+            self.disc_num = random.randint(1, max_disc)  # 1 means out feature
         self.id = df_id
-        if len(uniq_vals) < self.disc_num:
-            raise ValueError('Insufficient Unique Values for Discretization - Check Dataset')
-        comb_set = self.get_BPs_Comb(bps=uniq_vals, numSplits=self.disc_num)
-        self.break_pts = comb_set[0]
-        self.bin = None
-        self.label = None
+        if len(uniq_vals) == 1:
+            self.disc_num = 1
+        if self.disc_num > 1:
+            if len(uniq_vals) < self.disc_num:
+                raise ValueError('Insufficient Unique Values for Discretization - Check Dataset')
+            comb_set = self.get_BPs_Comb(bps=uniq_vals, numSplits=self.disc_num)
+            self.break_pts = comb_set[0]
+            self.bin = None
+            self.label = None
+            if self.feature == 'Regret':
+                pts = []
+                prev_pt = 0
+                for bkp in range(len(self.break_pts)+1):
+                    this_pt = random.randint(prev_pt + 1, random.randint(prev_pt+2, prev_pt + 1 + POINT_STRIDE))
+                    pts.append(this_pt)
+                    prev_pt = this_pt
+                self.point = pts
 
     def __repr__(self):
-        return 'Feature ({0}) {1} discretized with {2} classes - break points: {3})'.format(self.id, self.feature, self.disc_num, self.break_pts)
+        name = ''
+        if self.disc_num == 1:
+            name = 'Feature ({0}) {1} is not selected'.format(self.id, self.feature)
+        else:
+            name = 'Feature ({0}) {1} discretized with {2} classes - break points: {3}'.format(self.id, self.feature, self.disc_num, self.break_pts)
+        return name
 
     def get_BPs_Comb(self, bps: List[float], numSplits: int) -> List[tuple]:
         bounds = []
@@ -81,3 +103,23 @@ class Chromosome:
 
     def __repr__(self):
         return 'Chromosome with {0} features - Objective {1}'.format(len(self.genes), self.objective)
+
+    def mutate(self):
+        target_id = random.choice(range(0, len(self.genes)))
+        target_gene = self.genes[target_id]
+        if target_gene.disc_num == 1:
+            this_bps = np.unique(self.df.iloc[:, target_gene.id]).tolist()
+            self.genes[target_id] = Gene(feature_name=target_gene.feature, max_disc=4, df_id=target_gene.id, uniq_vals=this_bps)
+        else:
+            this_bps = np.unique(self.df.iloc[:, target_gene.id]).tolist()
+            self.genes[target_id] = Gene(feature_name=target_gene.feature, max_disc=4, df_id=target_gene.id, uniq_vals=this_bps)
+
+    def crossover(self, other: List[Gene], update_ratio=0.3):
+        num_update = math.ceil(len(self.genes)*update_ratio)
+        update_gene_ids = random.sample(range(0, len(self.genes)), num_update)
+
+        for id in update_gene_ids:
+            old_gene = self.genes[id]
+            new_gene = next(x for x in other if x.id == old_gene.id)
+            self.genes[id] = copy.deepcopy(new_gene)
+        print('done')

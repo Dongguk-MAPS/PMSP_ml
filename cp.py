@@ -51,9 +51,7 @@ def cp_scheduling(_prob: Instance, time_limit=300, init_sol: Schedule = None):
             stp.add_interval_var_solution(processing_itv_vars[bar.job.ID][bar.machine], presence=True, start=bar.start, end= bar.end)
         mdl.set_starting_point(stp)
 
-    msol = mdl.solve(TimeLimit=time_limit,
-                     execfile='/Applications/CPLEX_Studio2211/cpoptimizer/bin/arm64_osx/cpoptimizer')  # log_output=True
-
+    msol = mdl.solve(TimeLimit=time_limit)  # log_output=True
     print("Solution: ")
     msol.print_solution()
 
@@ -139,8 +137,7 @@ def cp_scheduling_subprob(_prob: Instance, time_limit=300):
 
     mdl.add(mdl.minimize(objective))
 
-    msol = mdl.solve(TimeLimit=time_limit,
-                     execfile='/Applications/CPLEX_Studio2211/cpoptimizer/bin/arm64_osx/cpoptimizer')  # log_output=True
+    msol = mdl.solve(TimeLimit=time_limit)  # log_output=True
     print("Solution: ")
     msol.print_solution()
     if msol.solve_status != 'Optimal' and msol.solve_status != 'Feasible':
@@ -175,7 +172,6 @@ def cp_scheduling_subprob(_prob: Instance, time_limit=300):
 def cp_scheduling_ortools(prob: Instance):
     jobs = [*range(0, prob.numJob)]
     machines = [*range(0, prob.numMch)]
-    d = prob.job_list
     setup_matrix = prob.setup
     processingTimes = prob.ptime
     H = 100000000000000
@@ -222,7 +218,7 @@ def cp_scheduling_ortools(prob: Instance):
             alt_intvs.append(presence_vars[m][j])
         model.Add(cp_model.LinearExpr.Sum(alt_intvs) == 1)
 
-    objective = cp_model.LinearExpr.Sum([end_vars[m][j]-d[j].due for j in jobs for m in machines])
+    objective = cp_model.LinearExpr.Sum([end_vars[m][j] for j in jobs for m in machines])
     model.Minimize(objective)
     solver = cp_model.CpSolver()
     solver.parameters.max_time_in_seconds = 300

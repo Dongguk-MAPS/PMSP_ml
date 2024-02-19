@@ -1,808 +1,168 @@
-def findDecision(obj): #obj[0]: NumWaitingJob, obj[1]: STime_A_VS_B, obj[2]: STime_A_VS_B_Diff, obj[3]: PTime_A_VS_B, obj[4]: PTime_A_VS_B_Diff, obj[5]: CompTime_A_VS_B, obj[6]: CompTime_A_VS_B_Diff, obj[7]: Start_A_VS_B, obj[8]: Start_A_VS_B_Diff, obj[9]: Tardy_A_VS_B, obj[10]: Tardy_A_VS_B_Diff
-<<<<<<< HEAD
-   # {"feature": "STime_A_VS_B", "instances": 15284, "metric_value": 1.41, "depth": 1}
-   if obj[1] == '<':
-      # {"feature": "STime_A_VS_B_Diff", "instances": 6290, "metric_value": 0.9008, "depth": 2}
-      if obj[2] == 'Greater_-29.5':
-         # {"feature": "Start_A_VS_B", "instances": 2995, "metric_value": 1.1504, "depth": 3}
-         if obj[7] == '<':
-            # {"feature": "PTime_A_VS_B_Diff", "instances": 1740, "metric_value": 1.2965, "depth": 4}
-            if obj[4] == 'Greater_-2.5':
-               # {"feature": "Tardy_A_VS_B", "instances": 946, "metric_value": 1.392, "depth": 5}
-               if obj[9] == '<':
-                  return '0'
-               elif obj[9] == '=':
-                  return '1'
-               elif obj[9] == '>':
-                  return '1'
-               else:
-                  return '2'
-            elif obj[4] == 'Less_-2.5':
-               # {"feature": "CompTime_A_VS_B_Diff", "instances": 794, "metric_value": 1.0134, "depth": 5}
-               if obj[6] == 'Less_203.5':
-                  return '0'
-               elif obj[6] == 'Less_-284.5':
-                  return '0'
-               elif obj[6] == 'Less_-370.5':
-                  return '0'
-               else:
-                  return '2'
-            else:
-               return '2'
-         elif obj[7] == '>':
-            # {"feature": "PTime_A_VS_B_Diff", "instances": 1238, "metric_value": 0.8098, "depth": 4}
-            if obj[4] == 'Greater_-2.5':
-               # {"feature": "CompTime_A_VS_B_Diff", "instances": 734, "metric_value": 0.9484, "depth": 5}
-               if obj[6] == 'Less_203.5':
-                  return '0'
-               elif obj[6] == 'Greater_203.5':
-                  return '0'
-               else:
-                  return '2'
-            elif obj[4] == 'Less_-2.5':
-               # {"feature": "NumWaitingJob", "instances": 504, "metric_value": 0.5181, "depth": 5}
-               if obj[0] == 'Less_15.5':
-                  return '0'
-               elif obj[0] == 'Less_7.5':
-                  return '0'
-               elif obj[0] == 'Greater_15.5':
-                  return '0'
-               else:
-                  return '2'
-            else:
-               return '2'
-         elif obj[7] == '=':
-            # {"feature": "PTime_A_VS_B_Diff", "instances": 17, "metric_value": 0.5226, "depth": 4}
-            if obj[4] == 'Greater_-2.5':
-               # {"feature": "PTime_A_VS_B", "instances": 11, "metric_value": 0.684, "depth": 5}
-               if obj[3] == '>':
-                  return '0'
-               elif obj[3] == '=':
-                  return '0'
-               elif obj[3] == '<':
-                  return '1'
-               else:
-                  return '1'
-            elif obj[4] == 'Less_-2.5':
+def findDecision(obj): #obj[0]: STime_A_VS_B_Diff, obj[1]: PTime_A_VS_B_Diff, obj[2]: CompTime_A_VS_B_Diff, obj[3]: Tardy_A_VS_B_Diff
+   # {"feature": "STime_A_VS_B_Diff", "instances": 680, "metric_value": 1.6486, "depth": 1}
+   if obj[0] == 'Less_39.5':
+      # {"feature": "PTime_A_VS_B_Diff", "instances": 533, "metric_value": 1.577, "depth": 2}
+      if obj[1] == 'Less_16.5':
+         # {"feature": "Tardy_A_VS_B_Diff", "instances": 222, "metric_value": 1.6243, "depth": 3}
+         if obj[3] == 'Greater_-29.5':
+            # {"feature": "CompTime_A_VS_B_Diff", "instances": 197, "metric_value": 1.6529, "depth": 4}
+            if obj[2] == 'Greater_-2.5':
+               return '0'
+            elif obj[2] == 'Less_-31.5':
+               return '0'
+            elif obj[2] == 'Less_-2.5':
                return '0'
             else:
-               return '1'
-         else:
-            return '2'
-      elif obj[2] == 'Less_-29.5':
-         # {"feature": "Start_A_VS_B", "instances": 2433, "metric_value": 0.6206, "depth": 3}
-         if obj[7] == '<':
-            # {"feature": "PTime_A_VS_B_Diff", "instances": 1543, "metric_value": 0.7884, "depth": 4}
-            if obj[4] == 'Less_-2.5':
-               # {"feature": "Tardy_A_VS_B", "instances": 836, "metric_value": 0.4713, "depth": 5}
-               if obj[9] == '<':
-                  return '0'
-               elif obj[9] == '=':
-                  return '0'
-               else:
-                  return '2'
-            elif obj[4] == 'Greater_-2.5':
-               # {"feature": "CompTime_A_VS_B_Diff", "instances": 707, "metric_value": 1.0367, "depth": 5}
-               if obj[6] == 'Less_203.5':
-                  return '0'
-               elif obj[6] == 'Less_-284.5':
-                  return '1'
-               elif obj[6] == 'Less_-370.5':
-                  return '0'
-               else:
-                  return '2'
-            else:
-               return '2'
-         elif obj[7] == '>':
-            # {"feature": "PTime_A_VS_B_Diff", "instances": 878, "metric_value": 0.1981, "depth": 4}
-            if obj[4] == 'Greater_-2.5':
-               # {"feature": "CompTime_A_VS_B_Diff", "instances": 448, "metric_value": 0.3014, "depth": 5}
-               if obj[6] == 'Less_203.5':
-                  return '0'
-               elif obj[6] == 'Greater_203.5':
-                  return '0'
-               else:
-                  return '1'
-            elif obj[4] == 'Less_-2.5':
-               # {"feature": "CompTime_A_VS_B", "instances": 430, "metric_value": 0.06, "depth": 5}
-               if obj[5] == '>':
-                  return '0'
-               elif obj[5] == '<':
-                  return '0'
-               elif obj[5] == '=':
-                  return '0'
-               else:
-                  return '1'
-            else:
-               return '1'
-         elif obj[7] == '=':
-            return '0'
-         else:
-            return '2'
-      elif obj[2] == 'Less_-62.5':
-         # {"feature": "Start_A_VS_B", "instances": 693, "metric_value": 0.2885, "depth": 3}
-         if obj[7] == '<':
-            # {"feature": "PTime_A_VS_B_Diff", "instances": 522, "metric_value": 0.3548, "depth": 4}
-            if obj[4] == 'Less_-2.5':
-               # {"feature": "Start_A_VS_B_Diff", "instances": 293, "metric_value": 0.1807, "depth": 5}
-               if obj[8] == 'Greater_-185.5':
-                  return '0'
-               elif obj[8] == 'Less_-185.5':
-                  return '0'
-               else:
-                  return '1'
-            elif obj[4] == 'Greater_-2.5':
-               # {"feature": "Tardy_A_VS_B", "instances": 229, "metric_value": 0.5233, "depth": 5}
-               if obj[9] == '<':
-                  return '0'
-               elif obj[9] == '=':
-                  return '0'
-               else:
-                  return '1'
-            else:
-               return '1'
-         elif obj[7] == '>':
-            return '0'
-         elif obj[7] == '=':
-            return '0'
-         else:
-            return '1'
-      elif obj[2] == 'Less_-80.5':
-         # {"feature": "PTime_A_VS_B", "instances": 169, "metric_value": 0.3001, "depth": 3}
-         if obj[3] == '<':
-            # {"feature": "Tardy_A_VS_B", "instances": 100, "metric_value": 0.1414, "depth": 4}
-            if obj[9] == '<':
                return '0'
-            elif obj[9] == '=':
-               # {"feature": "NumWaitingJob", "instances": 39, "metric_value": 0.2918, "depth": 5}
-               if obj[0] == 'Greater_15.5':
-                  return '0'
-               elif obj[0] == 'Less_15.5':
-                  return '0'
-               else:
-                  return '1'
-            else:
-               return '1'
-         elif obj[3] == '>':
-            # {"feature": "Tardy_A_VS_B", "instances": 66, "metric_value": 0.4879, "depth": 4}
-            if obj[9] == '=':
+         elif obj[3] == 'Less_-29.5':
+            # {"feature": "CompTime_A_VS_B_Diff", "instances": 19, "metric_value": 0.953, "depth": 4}
+            if obj[2] == 'Less_-31.5':
                return '0'
-            elif obj[9] == '<':
-               # {"feature": "NumWaitingJob", "instances": 29, "metric_value": 0.7973, "depth": 5}
-               if obj[0] == 'Less_15.5':
-                  return '0'
-               elif obj[0] == 'Greater_15.5':
-                  return '0'
-               elif obj[0] == 'Less_7.5':
-                  return '0'
-               else:
-                  return '1'
+            elif obj[2] == 'Less_-2.5':
+               return '0'
             else:
-               return '1'
-         elif obj[3] == '=':
+               return '0'
+         elif obj[3] == 'Less_-74.5':
+            # {"feature": "CompTime_A_VS_B_Diff", "instances": 6, "metric_value": 0.9183, "depth": 4}
+            if obj[2] == 'Less_-31.5':
+               return '0'
+            else:
+               return '0'
+         else:
+            return '0'
+      elif obj[1] == 'Less_-7.5':
+         # {"feature": "CompTime_A_VS_B_Diff", "instances": 189, "metric_value": 1.2215, "depth": 3}
+         if obj[2] == 'Less_-31.5':
+            # {"feature": "Tardy_A_VS_B_Diff", "instances": 79, "metric_value": 1.3894, "depth": 4}
+            if obj[3] == 'Greater_-29.5':
+               return '0'
+            elif obj[3] == 'Less_-29.5':
+               return '0'
+            elif obj[3] == 'Less_-74.5':
+               return '0'
+            elif obj[3] == 'Less_-68.5':
+               return '0'
+            else:
+               return '0'
+         elif obj[2] == 'Less_-2.5':
+            # {"feature": "Tardy_A_VS_B_Diff", "instances": 77, "metric_value": 0.9684, "depth": 4}
+            if obj[3] == 'Greater_-29.5':
+               return '0'
+            else:
+               return '0'
+         elif obj[2] == 'Greater_-2.5':
+            # {"feature": "Tardy_A_VS_B_Diff", "instances": 33, "metric_value": 1.2496, "depth": 4}
+            if obj[3] == 'Greater_-29.5':
+               return '0'
+            else:
+               return '0'
+         else:
+            return '0'
+      elif obj[1] == 'Greater_16.5':
+         # {"feature": "Tardy_A_VS_B_Diff", "instances": 81, "metric_value": 1.8029, "depth": 3}
+         if obj[3] == 'Greater_-29.5':
+            # {"feature": "CompTime_A_VS_B_Diff", "instances": 75, "metric_value": 1.799, "depth": 4}
+            if obj[2] == 'Greater_-2.5':
+               return '5'
+            elif obj[2] == 'Less_-2.5':
+               return '5'
+            elif obj[2] == 'Less_-31.5':
+               return '8'
+            else:
+               return '5'
+         elif obj[3] == 'Less_-29.5':
+            # {"feature": "CompTime_A_VS_B_Diff", "instances": 4, "metric_value": 0.8113, "depth": 4}
+            if obj[2] == 'Less_-31.5':
+               return '0'
+            elif obj[2] == 'Less_-2.5':
+               return '0'
+            else:
+               return '0'
+         elif obj[3] == 'Less_-74.5':
             return '0'
          else:
-            return '1'
+            return '5'
+      elif obj[1] == 'Less_-1.5':
+         # {"feature": "Tardy_A_VS_B_Diff", "instances": 41, "metric_value": 1.1409, "depth": 3}
+         if obj[3] == 'Greater_-29.5':
+            # {"feature": "CompTime_A_VS_B_Diff", "instances": 36, "metric_value": 1.2244, "depth": 4}
+            if obj[2] == 'Greater_-2.5':
+               return '0'
+            elif obj[2] == 'Less_-2.5':
+               return '0'
+            elif obj[2] == 'Less_-31.5':
+               return '0'
+            else:
+               return '0'
+         elif obj[3] == 'Less_-29.5':
+            return '0'
+         elif obj[3] == 'Less_-74.5':
+            return '0'
+         else:
+            return '0'
       else:
+         return '0'
+   elif obj[0] == 'Greater_39.5':
+      # {"feature": "Tardy_A_VS_B_Diff", "instances": 99, "metric_value": 1.6891, "depth": 2}
+      if obj[3] == 'Greater_-29.5':
+         # {"feature": "CompTime_A_VS_B_Diff", "instances": 98, "metric_value": 1.6747, "depth": 3}
+         if obj[2] == 'Greater_-2.5':
+            # {"feature": "PTime_A_VS_B_Diff", "instances": 92, "metric_value": 1.6915, "depth": 4}
+            if obj[1] == 'Less_16.5':
+               return '5'
+            elif obj[1] == 'Less_-7.5':
+               return '5'
+            elif obj[1] == 'Less_-1.5':
+               return '5'
+            elif obj[1] == 'Greater_16.5':
+               return '5'
+            else:
+               return '5'
+         elif obj[2] == 'Less_-2.5':
+            # {"feature": "PTime_A_VS_B_Diff", "instances": 5, "metric_value": 0.7219, "depth": 4}
+            if obj[1] == 'Less_-7.5':
+               return '5'
+            elif obj[1] == 'Less_16.5':
+               return '8'
+            else:
+               return '5'
+         elif obj[2] == 'Less_-31.5':
+            return '8'
+         else:
+            return '5'
+      elif obj[3] == 'Less_-29.5':
          return '2'
-   elif obj[1] == '>':
-      # {"feature": "PTime_A_VS_B_Diff", "instances": 6290, "metric_value": 1.5079, "depth": 2}
-      if obj[4] == 'Greater_-2.5':
-         # {"feature": "Start_A_VS_B", "instances": 4037, "metric_value": 1.4555, "depth": 3}
-         if obj[7] == '>':
-            # {"feature": "CompTime_A_VS_B_Diff", "instances": 2643, "metric_value": 1.4758, "depth": 4}
-            if obj[6] == 'Less_203.5':
-               # {"feature": "NumWaitingJob", "instances": 2311, "metric_value": 1.4511, "depth": 5}
-               if obj[0] == 'Less_15.5':
-                  return '1'
-               elif obj[0] == 'Less_7.5':
-                  return '1'
-               elif obj[0] == 'Greater_15.5':
-                  return '1'
-               else:
-                  return '2'
-            elif obj[6] == 'Greater_203.5':
-               # {"feature": "PTime_A_VS_B", "instances": 332, "metric_value": 1.5522, "depth": 5}
-=======
-   # {"feature": "STime_A_VS_B", "instances": 15284, "metric_value": 1.6129, "depth": 1}
-   if obj[1] == '<':
-      # {"feature": "STime_A_VS_B_Diff", "instances": 6290, "metric_value": 0.951, "depth": 2}
-      if obj[2] == 'Greater_-68.5':
-         # {"feature": "PTime_A_VS_B", "instances": 5769, "metric_value": 0.9941, "depth": 3}
-         if obj[3] == '<':
-            # {"feature": "Start_A_VS_B", "instances": 3124, "metric_value": 0.6965, "depth": 4}
-            if obj[7] == '<':
-               # {"feature": "NumWaitingJob", "instances": 1983, "metric_value": 0.8309, "depth": 5}
-               if obj[0] == 'Less_15.5':
-                  return '0'
-               elif obj[0] == 'Greater_15.5':
-                  return '0'
-               elif obj[0] == 'Less_5.5':
-                  return '0'
-               elif obj[0] == 'Less_1.5':
-                  return '0'
-               else:
-                  return '2'
-            elif obj[7] == '>':
-               # {"feature": "NumWaitingJob", "instances": 1127, "metric_value": 0.3935, "depth": 5}
-               if obj[0] == 'Less_15.5':
-                  return '0'
-               elif obj[0] == 'Less_5.5':
-                  return '0'
-               elif obj[0] == 'Greater_15.5':
-                  return '0'
-               elif obj[0] == 'Less_1.5':
-                  return '1'
-               else:
-                  return '2'
-            elif obj[7] == '=':
-               # {"feature": "Tardy_A_VS_B", "instances": 14, "metric_value": 0.3712, "depth": 5}
-               if obj[9] == '=':
-                  return '0'
-               elif obj[9] == '<':
-                  return '0'
-               else:
-                  return '1'
-            else:
+      else:
+         return '5'
+   elif obj[0] == 'Less_-58.5':
+      # {"feature": "Tardy_A_VS_B_Diff", "instances": 48, "metric_value": 0.5573, "depth": 2}
+      if obj[3] == 'Greater_-29.5':
+         # {"feature": "CompTime_A_VS_B_Diff", "instances": 27, "metric_value": 0.825, "depth": 3}
+         if obj[2] == 'Less_-31.5':
+            # {"feature": "PTime_A_VS_B_Diff", "instances": 19, "metric_value": 1.0215, "depth": 4}
+            if obj[1] == 'Less_16.5':
+               return '0'
+            elif obj[1] == 'Less_-7.5':
+               return '0'
+            elif obj[1] == 'Less_-1.5':
+               return '0'
+            elif obj[1] == 'Greater_16.5':
                return '2'
-         elif obj[3] == '>':
-            # {"feature": "Start_A_VS_B", "instances": 2452, "metric_value": 1.2655, "depth": 4}
-            if obj[7] == '<':
-               # {"feature": "CompTime_A_VS_B", "instances": 1428, "metric_value": 1.458, "depth": 5}
-               if obj[5] == '<':
-                  return '0'
-               elif obj[5] == '>':
-                  return '1'
-               elif obj[5] == '=':
-                  return '1'
-               else:
-                  return '4'
-            elif obj[7] == '>':
-               # {"feature": "CompTime_A_VS_B", "instances": 1007, "metric_value": 0.8246, "depth": 5}
-               if obj[5] == '>':
-                  return '0'
-               elif obj[5] == '<':
-                  return '0'
-               elif obj[5] == '=':
-                  return '0'
-               else:
-                  return '4'
-            elif obj[7] == '=':
-               # {"feature": "Tardy_A_VS_B", "instances": 17, "metric_value": 0.3228, "depth": 5}
-               if obj[9] == '=':
-                  return '0'
-               elif obj[9] == '<':
-                  return '0'
-               else:
-                  return '1'
             else:
-               return '4'
-         elif obj[3] == '=':
-            # {"feature": "Start_A_VS_B", "instances": 193, "metric_value": 0.9583, "depth": 4}
-            if obj[7] == '<':
-               # {"feature": "NumWaitingJob", "instances": 117, "metric_value": 1.1553, "depth": 5}
-               if obj[0] == 'Less_15.5':
-                  return '0'
-               elif obj[0] == 'Less_5.5':
-                  return '0'
-               elif obj[0] == 'Greater_15.5':
-                  return '0'
-               elif obj[0] == 'Less_1.5':
-                  return '0'
-               else:
-                  return '2'
-            elif obj[7] == '>':
-               # {"feature": "CompTime_A_VS_B", "instances": 75, "metric_value": 0.4898, "depth": 5}
-               if obj[5] == '>':
-                  return '0'
-               elif obj[5] == '<':
-                  return '0'
-               elif obj[5] == '=':
-                  return '1'
-               else:
-                  return '1'
-            elif obj[7] == '=':
                return '0'
-            else:
-               return '2'
-         else:
-            return '4'
-      elif obj[2] == 'Less_-68.5':
-         # {"feature": "PTime_A_VS_B", "instances": 521, "metric_value": 0.2437, "depth": 3}
-         if obj[3] == '<':
-            # {"feature": "Tardy_A_VS_B", "instances": 309, "metric_value": 0.0789, "depth": 4}
-            if obj[9] == '<':
-               return '0'
-            elif obj[9] == '=':
-               # {"feature": "NumWaitingJob", "instances": 100, "metric_value": 0.1944, "depth": 5}
-               if obj[0] == 'Greater_15.5':
-                  return '0'
-               elif obj[0] == 'Less_15.5':
-                  return '0'
-               else:
-                  return '1'
-            elif obj[9] == '>':
-               return '0'
-            else:
-               return '1'
-         elif obj[3] == '>':
-            # {"feature": "Start_A_VS_B", "instances": 198, "metric_value": 0.4395, "depth": 4}
-            if obj[7] == '<':
-               # {"feature": "CompTime_A_VS_B_Diff", "instances": 154, "metric_value": 0.5203, "depth": 5}
-               if obj[6] == 'Less_160.5':
-                  return '0'
-               elif obj[6] == 'Less_-339.0':
-                  return '0'
-               else:
-                  return '1'
-            elif obj[7] == '>':
-               return '0'
-            elif obj[7] == '=':
-               return '0'
-            else:
-               return '1'
-         elif obj[3] == '=':
+         elif obj[2] == 'Less_-2.5':
+            return '0'
+         elif obj[2] == 'Greater_-2.5':
             return '0'
          else:
-            return '1'
-      else:
-         return '4'
-   elif obj[1] == '>':
-      # {"feature": "PTime_A_VS_B_Diff", "instances": 6290, "metric_value": 1.9062, "depth": 2}
-      if obj[4] == 'Greater_-12.5':
-         # {"feature": "Start_A_VS_B", "instances": 5381, "metric_value": 1.9269, "depth": 3}
-         if obj[7] == '>':
-            # {"feature": "CompTime_A_VS_B", "instances": 3446, "metric_value": 1.8468, "depth": 4}
-            if obj[5] == '>':
-               # {"feature": "PTime_A_VS_B", "instances": 3436, "metric_value": 1.8474, "depth": 5}
-               if obj[3] == '>':
-                  return '1'
-               elif obj[3] == '<':
-                  return '1'
-               elif obj[3] == '=':
-                  return '1'
-               else:
-                  return '4'
-            elif obj[5] == '=':
-               # {"feature": "NumWaitingJob", "instances": 8, "metric_value": 0.9544, "depth": 5}
-               if obj[0] == 'Less_15.5':
-                  return '0'
-               elif obj[0] == 'Greater_15.5':
-                  return '1'
-               else:
-                  return '1'
-            elif obj[5] == '<':
-               # {"feature": "NumWaitingJob", "instances": 2, "metric_value": 1.0, "depth": 5}
-               if obj[0] == 'Less_15.5':
-                  return '1'
-               else:
-                  return '1'
-            else:
-               return '4'
-         elif obj[7] == '<':
-            # {"feature": "NumWaitingJob", "instances": 1908, "metric_value": 1.9634, "depth": 4}
-            if obj[0] == 'Less_15.5':
-               # {"feature": "PTime_A_VS_B", "instances": 1542, "metric_value": 1.9973, "depth": 5}
->>>>>>> f65158b (feat: local search)
-               if obj[3] == '>':
-                  return '2'
-               elif obj[3] == '<':
-                  return '1'
-               elif obj[3] == '=':
-                  return '1'
-               else:
-<<<<<<< HEAD
-                  return '2'
-            else:
-               return '2'
-         elif obj[7] == '<':
-            # {"feature": "CompTime_A_VS_B_Diff", "instances": 1375, "metric_value": 1.3258, "depth": 4}
-            if obj[6] == 'Less_203.5':
-               # {"feature": "NumWaitingJob", "instances": 1374, "metric_value": 1.326, "depth": 5}
-               if obj[0] == 'Less_15.5':
-                  return '2'
-               elif obj[0] == 'Less_7.5':
-                  return '1'
-               elif obj[0] == 'Greater_15.5':
-                  return '2'
-               else:
-                  return '2'
-            elif obj[6] == 'Less_-284.5':
-               return '2'
-            else:
-               return '2'
-         elif obj[7] == '=':
-            # {"feature": "PTime_A_VS_B", "instances": 19, "metric_value": 1.378, "depth": 4}
-            if obj[3] == '>':
-               # {"feature": "NumWaitingJob", "instances": 14, "metric_value": 1.2958, "depth": 5}
-               if obj[0] == 'Less_15.5':
-=======
-                  return '4'
-            elif obj[0] == 'Less_5.5':
-               # {"feature": "CompTime_A_VS_B", "instances": 271, "metric_value": 1.5697, "depth": 5}
-               if obj[5] == '<':
-                  return '1'
-               elif obj[5] == '>':
-                  return '1'
-               else:
-                  return '4'
-            elif obj[0] == 'Greater_15.5':
-               # {"feature": "Tardy_A_VS_B_Diff", "instances": 91, "metric_value": 1.7185, "depth": 5}
-               if obj[10] == 'Less_11.5':
-                  return '1'
-               elif obj[10] == 'Greater_11.5':
->>>>>>> f65158b (feat: local search)
-                  return '2'
-               elif obj[0] == 'Less_7.5':
-                  return '1'
-               else:
-<<<<<<< HEAD
-                  return '2'
-            elif obj[3] == '<':
-               # {"feature": "Tardy_A_VS_B", "instances": 4, "metric_value": 0.8113, "depth": 5}
-               if obj[9] == '=':
-                  return '1'
-               elif obj[9] == '>':
-                  return '1'
-               else:
-                  return '1'
-            elif obj[3] == '=':
-               return '2'
-            else:
-               return '2'
-         else:
-            return '2'
-      elif obj[4] == 'Less_-2.5':
-         # {"feature": "Start_A_VS_B", "instances": 2253, "metric_value": 1.4564, "depth": 3}
-         if obj[7] == '>':
-            # {"feature": "CompTime_A_VS_B_Diff", "instances": 1331, "metric_value": 1.3522, "depth": 4}
-            if obj[6] == 'Less_203.5':
-               # {"feature": "CompTime_A_VS_B", "instances": 1255, "metric_value": 1.2997, "depth": 5}
-               if obj[5] == '>':
-                  return '0'
-               elif obj[5] == '<':
-                  return '0'
-               elif obj[5] == '=':
-                  return '0'
-               else:
-                  return '2'
-            elif obj[6] == 'Greater_203.5':
-               # {"feature": "NumWaitingJob", "instances": 76, "metric_value": 1.5301, "depth": 5}
-               if obj[0] == 'Less_7.5':
-                  return '2'
-               elif obj[0] == 'Less_15.5':
-                  return '2'
-               elif obj[0] == 'Greater_15.5':
-                  return '2'
-=======
-                  return '4'
-            elif obj[0] == 'Less_1.5':
-               # {"feature": "CompTime_A_VS_B", "instances": 4, "metric_value": 1.0, "depth": 5}
-               if obj[5] == '<':
-                  return '0'
-               elif obj[5] == '>':
-                  return '1'
->>>>>>> f65158b (feat: local search)
-               else:
-                  return '1'
-            else:
-<<<<<<< HEAD
-               return '2'
-         elif obj[7] == '<':
-            # {"feature": "CompTime_A_VS_B", "instances": 907, "metric_value": 1.4237, "depth": 4}
-            if obj[5] == '<':
-               # {"feature": "Start_A_VS_B_Diff", "instances": 764, "metric_value": 1.4513, "depth": 5}
-               if obj[8] == 'Greater_-185.5':
-                  return '1'
-               elif obj[8] == 'Less_-185.5':
-                  return '1'
-               else:
-                  return '2'
-            elif obj[5] == '>':
-               # {"feature": "NumWaitingJob", "instances": 141, "metric_value": 1.1532, "depth": 5}
-               if obj[0] == 'Less_15.5':
-                  return '1'
-               elif obj[0] == 'Less_7.5':
-                  return '1'
-               elif obj[0] == 'Greater_15.5':
-                  return '2'
-               else:
-                  return '2'
-            elif obj[5] == '=':
-               # {"feature": "NumWaitingJob", "instances": 2, "metric_value": 1.0, "depth": 5}
-               if obj[0] == 'Less_7.5':
-                  return '1'
-               elif obj[0] == 'Greater_15.5':
-                  return '2'
-               else:
-                  return '2'
-            else:
-               return '2'
-         elif obj[7] == '=':
-            # {"feature": "Tardy_A_VS_B", "instances": 15, "metric_value": 0.9968, "depth": 4}
-            if obj[9] == '>':
-               # {"feature": "NumWaitingJob", "instances": 8, "metric_value": 0.5436, "depth": 5}
-               if obj[0] == 'Less_15.5':
-                  return '2'
-               elif obj[0] == 'Less_7.5':
-                  return '2'
-               else:
-                  return '2'
-            elif obj[9] == '=':
-               return '1'
-            else:
-               return '2'
-         else:
-            return '2'
-      else:
-         return '2'
-   elif obj[1] == '=':
-      # {"feature": "PTime_A_VS_B_Diff", "instances": 2704, "metric_value": 1.1209, "depth": 2}
-      if obj[4] == 'Greater_-2.5':
-         # {"feature": "Tardy_A_VS_B_Diff", "instances": 1545, "metric_value": 1.1151, "depth": 3}
-         if obj[10] == 'Greater_-39.5':
-            # {"feature": "CompTime_A_VS_B_Diff", "instances": 1540, "metric_value": 1.1136, "depth": 4}
-            if obj[6] == 'Less_203.5':
-               # {"feature": "Tardy_A_VS_B", "instances": 1538, "metric_value": 1.113, "depth": 5}
-               if obj[9] == '=':
-                  return '1'
-               elif obj[9] == '>':
-                  return '1'
-               elif obj[9] == '<':
-                  return '1'
-=======
-               return '4'
-         elif obj[7] == '=':
-            # {"feature": "Tardy_A_VS_B_Diff", "instances": 27, "metric_value": 1.4763, "depth": 4}
-            if obj[10] == 'Less_11.5':
-               # {"feature": "PTime_A_VS_B", "instances": 15, "metric_value": 1.6402, "depth": 5}
-               if obj[3] == '>':
-                  return '1'
-               elif obj[3] == '<':
-                  return '1'
-               elif obj[3] == '=':
-                  return '2'
->>>>>>> f65158b (feat: local search)
-               else:
-                  return '3'
-            elif obj[10] == 'Greater_11.5':
-               # {"feature": "NumWaitingJob", "instances": 12, "metric_value": 0.65, "depth": 5}
-               if obj[0] == 'Less_15.5':
-                  return '2'
-<<<<<<< HEAD
-            elif obj[6] == 'Greater_203.5':
-               return '0'
-            else:
-               return '2'
-         elif obj[10] == 'Less_-39.5':
             return '0'
-         else:
-            return '2'
-      elif obj[4] == 'Less_-2.5':
-         # {"feature": "Start_A_VS_B_Diff", "instances": 1159, "metric_value": 0.8609, "depth": 3}
-         if obj[8] == 'Greater_-185.5':
-            # {"feature": "CompTime_A_VS_B", "instances": 1157, "metric_value": 0.8592, "depth": 4}
-            if obj[5] == '<':
-               # {"feature": "Tardy_A_VS_B_Diff", "instances": 1145, "metric_value": 0.8547, "depth": 5}
-               if obj[10] == 'Greater_-39.5':
-                  return '0'
-               elif obj[10] == 'Less_-39.5':
-=======
-               else:
-                  return '2'
-            else:
-               return '3'
-         else:
-            return '4'
-      elif obj[4] == 'Less_-12.5':
-         # {"feature": "CompTime_A_VS_B_Diff", "instances": 767, "metric_value": 1.5596, "depth": 3}
-         if obj[6] == 'Less_160.5':
-            # {"feature": "Start_A_VS_B", "instances": 725, "metric_value": 1.5215, "depth": 4}
-            if obj[7] == '>':
-               # {"feature": "Tardy_A_VS_B_Diff", "instances": 403, "metric_value": 1.2105, "depth": 5}
-               if obj[10] == 'Less_11.5':
-                  return '0'
-               elif obj[10] == 'Greater_11.5':
-                  return '1'
-               else:
-                  return '4'
-            elif obj[7] == '<':
-               # {"feature": "Start_A_VS_B_Diff", "instances": 315, "metric_value": 1.6681, "depth": 5}
-               if obj[8] == 'Less_163.5':
-                  return '1'
-               elif obj[8] == 'Less_-237.5':
-                  return '1'
-               elif obj[8] == 'Less_-294.0':
-                  return '0'
-               else:
-                  return '4'
-            elif obj[7] == '=':
-               # {"feature": "Tardy_A_VS_B", "instances": 7, "metric_value": 0.8631, "depth": 5}
-               if obj[9] == '=':
-                  return '1'
-               elif obj[9] == '>':
-                  return '2'
-               else:
-                  return '2'
-            else:
-               return '4'
-         elif obj[6] == 'Greater_160.5':
-            # {"feature": "NumWaitingJob", "instances": 42, "metric_value": 1.6301, "depth": 4}
-            if obj[0] == 'Less_15.5':
-               # {"feature": "Start_A_VS_B_Diff", "instances": 27, "metric_value": 1.3921, "depth": 5}
-               if obj[8] == 'Greater_163.5':
-                  return '0'
-               elif obj[8] == 'Less_163.5':
-                  return '2'
-               else:
-                  return '2'
-            elif obj[0] == 'Less_5.5':
-               # {"feature": "Start_A_VS_B_Diff", "instances": 9, "metric_value": 1.8366, "depth": 5}
-               if obj[8] == 'Greater_163.5':
-                  return '0'
-               elif obj[8] == 'Less_163.5':
-                  return '1'
-               else:
-                  return '4'
-            elif obj[0] == 'Greater_15.5':
-               # {"feature": "Tardy_A_VS_B", "instances": 4, "metric_value": 0.8113, "depth": 5}
-               if obj[9] == '>':
-                  return '2'
-               elif obj[9] == '=':
-                  return '2'
-               else:
-                  return '2'
-            elif obj[0] == 'Less_1.5':
-               return '2'
-            else:
-               return '4'
-         else:
-            return '4'
-      elif obj[4] == 'Less_-23.5':
-         # {"feature": "Start_A_VS_B", "instances": 139, "metric_value": 1.3008, "depth": 3}
-         if obj[7] == '>':
-            # {"feature": "CompTime_A_VS_B", "instances": 80, "metric_value": 0.9397, "depth": 4}
-            if obj[5] == '>':
-               # {"feature": "NumWaitingJob", "instances": 77, "metric_value": 0.9568, "depth": 5}
-               if obj[0] == 'Less_15.5':
->>>>>>> f65158b (feat: local search)
-                  return '0'
-               elif obj[0] == 'Greater_15.5':
-                  return '0'
-               elif obj[0] == 'Less_5.5':
-                  return '1'
-               else:
-                  return '2'
-            elif obj[5] == '>':
-               # {"feature": "NumWaitingJob", "instances": 12, "metric_value": 0.9799, "depth": 5}
-               if obj[0] == 'Less_7.5':
-                  return '1'
-               elif obj[0] == 'Less_15.5':
-                  return '0'
-               elif obj[0] == 'Greater_15.5':
-                  return '0'
-               else:
-                  return '1'
-            else:
-               return '2'
-<<<<<<< HEAD
-         elif obj[8] == 'Less_-185.5':
-            return '1'
-=======
-         elif obj[7] == '<':
-            # {"feature": "CompTime_A_VS_B", "instances": 59, "metric_value": 1.5316, "depth": 4}
-            if obj[5] == '<':
-               # {"feature": "Start_A_VS_B_Diff", "instances": 57, "metric_value": 1.5466, "depth": 5}
-               if obj[8] == 'Less_163.5':
-                  return '1'
-               elif obj[8] == 'Less_-237.5':
-                  return '1'
-               else:
-                  return '3'
-            elif obj[5] == '>':
-               return '1'
-            else:
-               return '3'
-         else:
-            return '3'
-      elif obj[4] == 'Less_-29.5':
-         # {"feature": "CompTime_A_VS_B_Diff", "instances": 3, "metric_value": 0.9183, "depth": 3}
-         if obj[6] == 'Less_160.5':
-            return '0'
-         elif obj[6] == 'Greater_160.5':
-            return '1'
-         else:
-            return '1'
+      elif obj[3] == 'Less_-29.5':
+         return '0'
+      elif obj[3] == 'Less_-74.5':
+         return '0'
+      elif obj[3] == 'Less_-68.5':
+         return '0'
       else:
-         return '4'
-   elif obj[1] == '=':
-      # {"feature": "CompTime_A_VS_B_Diff", "instances": 2704, "metric_value": 1.1891, "depth": 2}
-      if obj[6] == 'Less_160.5':
-         # {"feature": "PTime_A_VS_B", "instances": 2697, "metric_value": 1.185, "depth": 3}
-         if obj[3] == '<':
-            # {"feature": "Start_A_VS_B_Diff", "instances": 1318, "metric_value": 0.9468, "depth": 4}
-            if obj[8] == 'Less_163.5':
-               # {"feature": "PTime_A_VS_B_Diff", "instances": 1316, "metric_value": 0.9456, "depth": 5}
-               if obj[4] == 'Greater_-12.5':
-                  return '0'
-               elif obj[4] == 'Less_-12.5':
-                  return '0'
-               elif obj[4] == 'Less_-23.5':
-                  return '0'
-               elif obj[4] == 'Less_-29.5':
-                  return '0'
-               else:
-                  return '2'
-            elif obj[8] == 'Greater_163.5':
-               return '1'
-            else:
-               return '2'
-         elif obj[3] == '>':
-            # {"feature": "CompTime_A_VS_B", "instances": 1311, "metric_value": 1.2086, "depth": 4}
-            if obj[5] == '>':
-               # {"feature": "Start_A_VS_B", "instances": 1299, "metric_value": 1.1858, "depth": 5}
-               if obj[7] == '=':
-                  return '1'
-               elif obj[7] == '>':
-                  return '1'
-               elif obj[7] == '<':
-                  return '2'
-               else:
-                  return '4'
-            elif obj[5] == '<':
-               # {"feature": "NumWaitingJob", "instances": 12, "metric_value": 1.7807, "depth": 5}
-               if obj[0] == 'Less_5.5':
-                  return '0'
-               elif obj[0] == 'Less_15.5':
-                  return '1'
-               elif obj[0] == 'Greater_15.5':
-                  return '3'
-               else:
-                  return '4'
-            else:
-               return '4'
-         elif obj[3] == '=':
-            # {"feature": "NumWaitingJob", "instances": 68, "metric_value": 1.0944, "depth": 4}
-            if obj[0] == 'Greater_15.5':
-               # {"feature": "STime_A_VS_B_Diff", "instances": 34, "metric_value": 1.1614, "depth": 5}
-               if obj[2] == 'Greater_-68.5':
-                  return '0'
-               else:
-                  return '2'
-            elif obj[0] == 'Less_15.5':
-               # {"feature": "STime_A_VS_B_Diff", "instances": 34, "metric_value": 0.9975, "depth": 5}
-               if obj[2] == 'Greater_-68.5':
-                  return '0'
-               else:
-                  return '1'
-            else:
-               return '2'
-         else:
-            return '4'
-      elif obj[6] == 'Greater_160.5':
-         # {"feature": "Start_A_VS_B_Diff", "instances": 7, "metric_value": 1.4488, "depth": 3}
-         if obj[8] == 'Greater_163.5':
-            # {"feature": "NumWaitingJob", "instances": 6, "metric_value": 1.4591, "depth": 4}
-            if obj[0] == 'Less_5.5':
-               # {"feature": "STime_A_VS_B_Diff", "instances": 4, "metric_value": 1.5, "depth": 5}
-               if obj[2] == 'Greater_-68.5':
-                  return '0'
-               else:
-                  return '2'
-            elif obj[0] == 'Less_15.5':
-               # {"feature": "STime_A_VS_B_Diff", "instances": 2, "metric_value": 1.0, "depth": 5}
-               if obj[2] == 'Greater_-68.5':
-                  return '0'
-               else:
-                  return '2'
-            else:
-               return '2'
-         elif obj[8] == 'Less_163.5':
-            return '2'
->>>>>>> f65158b (feat: local search)
-         else:
-            return '2'
-      else:
-         return '4'
+         return '0'
    else:
-      return '4'
+      return '0'

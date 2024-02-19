@@ -4,6 +4,7 @@ import pandas as pd
 from chefboost import Chefboost as chef
 import retrieval
 from gda import *
+import priority_functions
 
 JS_Model = None
 MA_Model = None
@@ -12,7 +13,12 @@ MAX_DEPTH = 5
 
 
 def discrete_df(df: pd.DataFrame, chromo: Chromosome):
+    # final_columns = [gene.feature for gene in chromo.genes if gene.disc_num != 1]
+    # df = df.drop(columns=[col for col in df if col not in final_columns])
     for gene in chromo.genes:
+        if gene.disc_num == 1:
+            df = df.drop(columns=[gene.feature])
+            continue
         if gene.feature != 'Regret':
             bin = [float('-inf')]
             label = []
@@ -34,13 +40,13 @@ def discrete_df(df: pd.DataFrame, chromo: Chromosome):
             prev_pt = 0
             for i in range(len(gene.break_pts)):
                 bin.append(gene.break_pts[i])
-                pt = (prev_pt+gene.break_pts[i])/2
-                # label.append('{0}'.format(pt))
-                label.append('{0}'.format(i+1))
-                prev_pt = gene.break_pts[i]
+                # pt = (prev_pt+gene.break_pts[i])/2
+                label.append('{0}'.format(gene.point[i]))
+                # label.append('{0}'.format(i+1))
+                # prev_pt = gene.break_pts[i]
             bin.append(float('inf'))
-            # label.append('{0}'.format(gene.break_pts[i]))
-            label.append('{0}'.format(i+2))
+            label.append('{0}'.format(gene.point[i+1]))
+            # label.append('{0}'.format(i+2))
             gene.bin = bin
             gene.label = label
             df[gene.feature] = pd.cut(df[gene.feature], bins=bin, labels=label)
@@ -113,7 +119,8 @@ def ml_scheduling(_prob: Instance, model_js, model_ma, ml_alg: str = 'None', dis
             for JobA in job_list:
                 for JobB in job_list:
                     if JobA is not JobB:
-                        row = retrieval.add_row_js(pd.DataFrame(), prob, JobA, JobB, 0, no_label=True)
+                        func = retrieval.update_features()
+                        row = retrieval.add_row_js(pd.DataFrame(), prob, JobA, JobB, 0, no_label=True, func=func)
                         row = discrete_df(row, chromo[0])
                         regret = get_regret(model=model_js, row=row.values.tolist()[0])
                         JobA.priority += float(regret)
@@ -149,7 +156,7 @@ def ml_scheduling(_prob: Instance, model_js, model_ma, ml_alg: str = 'None', dis
 
     obj = get_obj(prob)
     result = Schedule('ML Scheduling with {0}'.format(ml_alg), prob, obj=obj)
-    result.print_schedule()
+    # result.print_schedule()
 
     return result
 
@@ -206,6 +213,6 @@ def ml_scheduling_sep(_prob: Instance, model_js_binary, model_js, model_ma_binar
 
     obj = get_obj(prob)
     result = Schedule('ML Scheduling with {0}'.format(ml_alg), prob, obj=obj)
-    result.print_schedule()
+    # result.print_schedule()
 
     return result

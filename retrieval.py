@@ -1,8 +1,9 @@
 from module import *
-from typing import List
+from typing import List, Callable
 import copy
 import pandas as pd
 from cp import *
+import priority_functions
 
 JS_FIRST = True  # Job Sequencing -> Machine Allocation
 # Features for Job Sequencing -> Machine Allocation
@@ -24,20 +25,20 @@ FEATURES_MA_JM = ['Regret', 'NumWaitingJob',
                   'Tardy_A', 'Tardy_B', 'Tardy_A_VS_B', 'Tardy_A_VS_B_Diff',
                   ]
 DROP_FEATURES_JS_JM = [
-                  'STime_A_Avg', 'STime_B_Avg',
-                  'STime_A_Min', 'STime_B_Min',
-                  'STime_A_Max', 'STime_B_Max',
-                  'PTime_A_Avg', 'PTime_B_Avg',
-                  'PTime_A_Min', 'PTime_B_Min',
-                  'PTime_A_Max', 'PTime_B_Max',
-                  'Due_A', 'Due_B'
+                  'STime_A_Avg', 'STime_B_Avg', 'STime_A_VS_B_Avg',
+                  'STime_A_Min', 'STime_B_Min', 'STime_A_VS_B_Min',
+                  'STime_A_Max', 'STime_B_Max', 'STime_A_VS_B_Max',
+                  'PTime_A_Avg', 'PTime_B_Avg', 'PTime_A_VS_B_Avg',
+                  'PTime_A_Min', 'PTime_B_Min', 'PTime_A_VS_B_Min',
+                  'PTime_A_Max', 'PTime_B_Max', 'PTime_A_VS_B_Max',
+                  'Due_A', 'Due_B', 'Due_A_VS_B'
                   ]
 DROP_FEATURES_MA_JM = [
-                  'STime_A', 'STime_B',
-                  'PTime_A', 'PTime_B',
-                  'CompTime_A', 'CompTime_B',
-                  'Start_A', 'Start_B',
-                  'Tardy_A', 'Tardy_B',
+                  'STime_A', 'STime_B', 'STime_A_VS_B',
+                  'PTime_A', 'PTime_B', 'PTime_A_VS_B',
+                  'CompTime_A', 'CompTime_B', 'CompTime_A_VS_B',
+                  'Start_A', 'Start_B', 'Start_A_VS_B',
+                  'Tardy_A', 'Tardy_B', 'Tardy_A_VS_B'
                   ]
 CAT_FEATURES_JS_JM = [
                   'STime_A_VS_B_Avg',
@@ -62,7 +63,34 @@ FEATURES_JS_MJ = ['Machine', 'Regret', 'NumWaitingJob', 'STime_A', 'STime_B', 'S
 FEATURES_MA_MJ = ['Regret', 'NumWaitingJob', 'STime_A', 'STime_B', 'STime_A_VS_B']
 
 
-def add_row_js(df: pd.DataFrame, prob: Instance, Job_A: Job, Job_B: Job, regret: float, mch: Machine = None, no_label=False):
+def get_priority_func():
+    functions = {}
+    functions['MDD'] = priority_functions.mdd
+    functions['RT'] = priority_functions.rt
+    functions['ATC'] = priority_functions.atc
+    functions['SLK'] = priority_functions.slack
+    functions['CR'] = priority_functions.cr
+    functions['COVERT'] = priority_functions.covert
+    return functions
+
+
+def update_features():
+    prior_func = get_priority_func()
+    prior_func_names = list(prior_func.keys())
+    global FEATURES_JS_JM, CAT_FEATURES_JS_JM, DROP_FEATURES_JS_JM
+    for func in prior_func_names:
+        if '{0}_A'.format(func) not in FEATURES_JS_JM:
+            FEATURES_JS_JM.append('{0}_A'.format(func))
+            DROP_FEATURES_JS_JM.append('{0}_A'.format(func))
+            FEATURES_JS_JM.append('{0}_B'.format(func))
+            DROP_FEATURES_JS_JM.append('{0}_B'.format(func))
+            FEATURES_JS_JM.append('{0}_A_VS_B'.format(func))
+            CAT_FEATURES_JS_JM.append('{0}_A_VS_B'.format(func))
+            DROP_FEATURES_JS_JM.append('{0}_A_VS_B'.format(func))
+            FEATURES_JS_JM.append('{0}_A_VS_B_Diff'.format(func))
+    return prior_func
+
+def add_row_js(df: pd.DataFrame, prob: Instance, Job_A: Job, Job_B: Job, regret: float, mch: Machine = None, no_label=False, func:Callable=None):
     row = dict()
 
     if JS_FIRST:
@@ -109,6 +137,15 @@ def add_row_js(df: pd.DataFrame, prob: Instance, Job_A: Job, Job_B: Job, regret:
         row['Due_B'] = Job_B.due
         row['Due_A_VS_B'] = CompareTwoValues(Job_A.due, Job_B.due)
         row['Due_A_VS_B_Diff'] = Job_A.due - Job_B.due
+
+        if func is not None:
+            for p_func in func:
+                priority_a = func[p_func](prob, Job_A)
+                priority_b = func[p_func](prob, Job_B)
+                row['{0}_A'.format(p_func)] = priority_a
+                row['{0}_B'.format(p_func)] = priority_b
+                row['{0}_A_VS_B'.format(p_func)] = CompareTwoValues(priority_a, priority_b)
+                row['{0}_A_VS_B_Diff'.format(p_func)] = priority_a - priority_b
 
         row['Regret'] = regret
     else:
@@ -289,6 +326,10 @@ def retrieve_decisions(_prob: Instance, _schedule: Schedule, js_path: str ='data
     return None
 
 def retrieve_decisions_rh(_prob: Instance, js_path: str ='datasets/js.csv', ma_path: str ='datasets/ma.csv') -> pd.DataFrame:
+
+    # Update Features based on user-defined functions
+    prior_func = update_features()
+
     if JS_FIRST:
         df_js = pd.DataFrame(columns=FEATURES_JS_JM)
         df_ma = pd.DataFrame(columns=FEATURES_MA_JM)
@@ -333,8 +374,8 @@ def retrieve_decisions_rh(_prob: Instance, js_path: str ='datasets/js.csv', ma_p
 
             for job in wait_jobs:
                 if job is not chosen_job:
-                    df_js = add_row_js(df_js, prob, chosen_job, job, 0)
-                    df_js = add_row_js(df_js, prob, job, chosen_job, perf[job.ID][0]-perf[chosen_job.ID][0])
+                    df_js = add_row_js(df=df_js, prob=prob, Job_A=chosen_job, Job_B=job, regret=0, func=prior_func)
+                    df_js = add_row_js(df=df_js, prob=prob, Job_A=job, Job_B=chosen_job, regret=perf[job.ID][0]-perf[chosen_job.ID][0], func=prior_func)
 
             chosen_mch = perf[chosen_job.ID][2]
         else:
