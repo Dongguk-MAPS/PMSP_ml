@@ -1,0 +1,25 @@
+
+_python:S2208"GImport only needed names or import the module and then use its members.(ÀÒš
+dpython:S2208"GImport only needed names or import the module and then use its members.(ïÄÍøÿÿÿÿ
+kpython:S117"TRename this local variable "C_i" to match the regular expression ^[_a-z][a-z0-9_]*$.( ¶Õ±
+qpython:S117"URename this local variable "C_ik" to match the regular expression ^[_a-z][a-z0-9_]*$.(ß¿ÀĞıÿÿÿÿ
+qpython:S117"URename this local variable "S_ik" to match the regular expression ^[_a-z][a-z0-9_]*$.(½óÍùüÿÿÿÿ
+Mpython:S1481!"0Remove the unused local variable "constraint_2".(Ë¯¡¸úÿÿÿÿ
+Mpython:S1481)"0Remove the unused local variable "constraint_4".(™‹ôÙÿÿÿÿÿ
+Hpython:S1481"0Remove the unused local variable "constraint_1".(Ş´¹‚
+Hpython:S1481%"0Remove the unused local variable "constraint_3".(ä¿íô
+Hpython:S14811"0Remove the unused local variable "constraint_6".(óı†ä
+Mpython:S1481-"0Remove the unused local variable "constraint_5".(ùÊè’ıÿÿÿÿ
+dpython:S1763^"GDelete this unreachable code or refactor the code to make it reachable.(ÃÆ£„úÿÿÿÿ
+lpython:S3776"TRefactor this function to reduce its Cognitive Complexity from 25 to the 15 allowed.(§ôÍ˜
+6python:S125W"Remove this commented out code.(ç‘Ñ“
+kpython:S117}"TRename this local variable "C_i" to match the regular expression ^[_a-z][a-z0-9_]*$.(†ŠÀ
+qpython:S117~"URename this local variable "C_ik" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÍïÉğÿÿÿÿÿ
+lpython:S117"URename this local variable "S_ik" to match the regular expression ^[_a-z][a-z0-9_]*$.(›Ñá
+Ipython:S1481‰"0Remove the unused local variable "constraint_6".(ÙäŞÔ
+Npython:S1481ˆ"0Remove the unused local variable "constraint_5".(­ÌËøÿÿÿÿÿ
+Ipython:S1481†"0Remove the unused local variable "constraint_3".(â˜ë’
+Ipython:S1481‡"0Remove the unused local variable "constraint_4".(óÌÖ§
+Npython:S1481„"0Remove the unused local variable "constraint_1".(Œ Áûÿÿÿÿÿ
+Npython:S1481…"0Remove the unused local variable "constraint_2".( «ù÷ûÿÿÿÿ
+|python:S1871—"cEither merge this branch with the identical one on line "147" or change one of the implementations.(íĞè‹

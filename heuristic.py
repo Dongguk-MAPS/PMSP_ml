@@ -1,8 +1,7 @@
 from module import *
 import copy
 
-
-def scheduling(_prob: Instance, rule: str) -> Schedule:
+def scheduling(_prob: Instance, rule: str, weight: list =None) -> Schedule:
     '''
     This function is for finding a feasible solution for a given scheduling problem instance.
     :param prob: Problem Instance
@@ -22,6 +21,14 @@ def scheduling(_prob: Instance, rule: str) -> Schedule:
                     j.priority = min(mch_list, key=lambda m: m.available).ptime[j.ID]
                 elif rule == 'MST':  # This is an example of MST (Minimum Setup Time)
                     j.priority = min(mch_list, key=lambda m: m.available).get_setup(j)
+                elif rule == 'MIX':
+                    priority_EDD = j.due
+                    priority_SPT = min(mch_list, key=lambda m: m.available).ptime[j.ID]
+                    priority_MST = min(mch_list, key=lambda m: m.available).get_setup(j)
+                    priority_LPT = max(mch_list, key=lambda m: m.available).ptime[j.ID]
+                    element = [priority_EDD, priority_SPT, priority_MST, priority_LPT]
+                    j.priority = sum([a * b for a, b in zip(weight, element)])
+
                 else: # If there is no rule, randomly select
                     j.priority = random.uniform(0.0, 1.0)
         return sorted((job for job in job_list if job.complete is False), key=lambda j: j.priority)

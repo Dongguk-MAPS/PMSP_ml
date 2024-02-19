@@ -1,0 +1,7 @@
+
+_python:S2208"GImport only needed names or import the module and then use its members.(ÀÒš
+ppython:S117"TRename this local variable "C_i" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÉàÀÛùÿÿÿÿ
+qpython:S117"URename this local variable "C_ik" to match the regular expression ^[_a-z][a-z0-9_]*$.(“èöúÿÿÿÿ
+lpython:S117"URename this local variable "S_ik" to match the regular expression ^[_a-z][a-z0-9_]*$.(›£¼Ò
+Gpython:S14813"*Remove the unused local variable "result".(Î˜Ú‹ùÿÿÿÿ
+lpython:S3776"TRefactor this function to reduce its Cognitive Complexity from 16 to the 15 allowed.(÷—áş

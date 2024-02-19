@@ -1,0 +1,7 @@
+
+fpython:S2208"GImport only needed names or import the module and then use its members.(ÀÒš8¸¾ç¼Ø1
+{python:S117"]Rename this local variable "priority_EDD" to match the regular expression ^[_a-z][a-z0-9_]*$.(ºÀ“–8¸¾ç¼Ø1
+€python:S117"]Rename this local variable "priority_LPT" to match the regular expression ^[_a-z][a-z0-9_]*$.(Æ…¾ûùÿÿÿÿ8¸¾ç¼Ø1
+{python:S117"]Rename this local variable "priority_MST" to match the regular expression ^[_a-z][a-z0-9_]*$.(²¢8¸¾ç¼Ø1
+€python:S117"]Rename this local variable "priority_SPT" to match the regular expression ^[_a-z][a-z0-9_]*$.(ŞŸšçıÿÿÿÿ8¸¾ç¼Ø1
+Bpython:S125"Remove this commented out code.(·š•Şşÿÿÿÿ8¸¾ç¼Ø1

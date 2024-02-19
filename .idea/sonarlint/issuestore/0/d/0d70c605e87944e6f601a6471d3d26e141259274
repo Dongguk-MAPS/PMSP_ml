@@ -1,0 +1,27 @@
+
+_python:S2208"GImport only needed names or import the module and then use its members.(ÀÒš
+^python:S2208"GImport only needed names or import the module and then use its members.(š‡ß]
+Opython:S1172A"+Remove the unused function parameter "mch".(ÀêÊ¡øÿÿÿÿ8Ìıó–×1
+tpython:S117A"QRename this parameter "Job_A" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÀêÊ¡øÿÿÿÿ8Ìıó–×1
+tpython:S117A"QRename this parameter "Job_B" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÀêÊ¡øÿÿÿÿ8Ìıó–×1
+zpython:S117["\Rename this local variable "jobA_ptimes" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÁÔ¿8Ìıó–×1
+zpython:S117J"\Rename this local variable "jobA_setups" to match the regular expression ^[_a-z][a-z0-9_]*$.(õ·‚È8Ìıó–×1
+python:S117\"\Rename this local variable "jobB_ptimes" to match the regular expression ^[_a-z][a-z0-9_]*$.(ËÀ¬Üüÿÿÿÿ8Ìıó–×1
+zpython:S117K"\Rename this local variable "jobB_setups" to match the regular expression ^[_a-z][a-z0-9_]*$.(†’İÚ8Ìıó–×1
+Bpython:S125F"Remove this commented out code.(ô®—œıÿÿÿÿ8Ìıó–×1
+opython:S117"QRename this parameter "Mch_A" to match the regular expression ^[_a-z][a-z0-9_]*$.(ç–ù¤8Ìıó–×1
+opython:S117"QRename this parameter "Mch_B" to match the regular expression ^[_a-z][a-z0-9_]*$.(ç–ù¤8Ìıó–×1
+vpython:S117›"XRename this local variable "Tardy_A" to match the regular expression ^[_a-z][a-z0-9_]*$.(Ğ“ê`8Ìıó–×1
+wpython:S117œ"XRename this local variable "Tardy_B" to match the regular expression ^[_a-z][a-z0-9_]*$.(ı»†Ë8Ìıó–×1
+ypython:S117”"[Rename this local variable "comptime_A" to match the regular expression ^[_a-z][a-z0-9_]*$.(ù‚Ö'8Ìıó–×1
+zpython:S117•"[Rename this local variable "comptime_B" to match the regular expression ^[_a-z][a-z0-9_]*$.(€š«Á8Ìıó–×1
+Cpython:S125©"Remove this commented out code.(¨’ûÏüÿÿÿÿ8Ìıó–×1
+Cpython:S125¬"Remove this commented out code.(¿¨çÉûÿÿÿÿ8Ìıó–×1
+Qpython:S1481²"1Replace unused local variable "file_js" with "_".(Éî÷‚8Ìıó–×1
+Vpython:S1481³"1Replace unused local variable "file_ma" with "_".(¢ØÂ§úÿÿÿÿ8Ìıó–×1
+ypython:S3776Ä"TRefactor this function to reduce its Cognitive Complexity from 67 to the 15 allowed.(ñ¢¡Öøÿÿÿÿ8Íıó–×1
+Tpython:S1135Ù"4Complete the task associated to this "TODO" comment.(å ÁÄ8Íıó–×1
+Hpython:S108š")Either remove or fill this block of code.(ã‘Û¾8Íıó–×1
+ypython:S3776£"TRefactor this function to reduce its Cognitive Complexity from 34 to the 15 allowed.(ê¹®–ıÿÿÿÿ8Íıó–×1
+Tpython:S1135¯"4Complete the task associated to this "TODO" comment.(å ÁÄ8Íıó–×1
+Hpython:S108Õ")Either remove or fill this block of code.(ã‘Û¾8Íıó–×1

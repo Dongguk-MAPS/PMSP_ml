@@ -1,0 +1,9 @@
+
+jpython:S1542"SRename function "getSampleSize" to match the regular expression ^[a-z_][a-z0-9_]*$.(šðÈr
+Zpython:S112">Replace this generic exception class with a more specific one.(íüýÊþÿÿÿÿ
+python:S5886."gReturn a value of type "list[tuple]" instead of "NoneType" or update function "get_BPs_Comb" type hint.(ò¤Ÿù
+python:S58860"gReturn a value of type "list[tuple]" instead of "NoneType" or update function "get_BPs_Comb" type hint.(ò¤Ÿù
+python:S5886:"gReturn a value of type "list[tuple]" instead of "NoneType" or update function "get_BPs_Comb" type hint.(ò¤Ÿù
+python:S5886A"gReturn a value of type "list[tuple]" instead of "NoneType" or update function "get_BPs_Comb" type hint.(ò¤Ÿù
+lpython:S117*"URename this parameter "numSplits" to match the regular expression ^[_a-z][a-z0-9_]*$.(Þ¢˜Ã
+gpython:S100*"PRename method "get_BPs_Comb" to match the regular expression ^[a-z_][a-z0-9_]*$.(Þ¢˜Ã

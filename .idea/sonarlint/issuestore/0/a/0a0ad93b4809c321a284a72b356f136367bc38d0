@@ -6,17 +6,16 @@ upython:S117"^Rename this local variable "nbrOfMachines" to match the regula
 |python:S117"`Rename this local variable "processingTimes" to match the regular expression ^[_a-z][a-z0-9_]*$.(ƒë«Åúÿÿÿÿ
 kpython:S3776"TRefactor this function to reduce its Cognitive Complexity from 18 to the 15 allowed.(¿ÜÀz
 Qpython:S1135"4Complete the task associated to this "TODO" comment.(üýµ¦ûÿÿÿÿ
-6python:S1256"Remove this commented out code.(ÛãÔØ
-apython:S1854¤"HRemove this assignment to local variable 'obj'; the value is never used.(ïÖŠÃ
-ipython:S1854Œ"IRemove this assignment to local variable 'msol'; the value is never used.(Øð·ô8ÎŽÄÑÕ1
-vpython:S117Z"ZRename this local variable "nbrOfJobs" to match the regular expression ^[_a-z][a-z0-9_]*$.(›½Í§ùÿÿÿÿ
-upython:S117\"^Rename this local variable "nbrOfMachines" to match the regular expression ^[_a-z][a-z0-9_]*$.(Žõ¡È
+Bpython:S1257"Remove this commented out code.(å¢è¸ùÿÿÿÿ8òüó–×1
+hpython:S1854¥"HRemove this assignment to local variable 'obj'; the value is never used.(ïÖŠÃ8Àò±—×1
+}python:S117Z"ZRename this local variable "nbrOfJobs" to match the regular expression ^[_a-z][a-z0-9_]*$.(›½Í§ùÿÿÿÿ8òüó–×1
+|python:S117\"^Rename this local variable "nbrOfMachines" to match the regular expression ^[_a-z][a-z0-9_]*$.(Žõ¡È8òüó–×1
 |python:S117^"`Rename this local variable "processingTimes" to match the regular expression ^[_a-z][a-z0-9_]*$.(ƒë«Åúÿÿÿÿ
-lpython:S3776V"TRefactor this function to reduce its Cognitive Complexity from 35 to the 15 allowed.(à›è€
-Qpython:S1135W"4Complete the task associated to this "TODO" comment.(üýµ¦ûÿÿÿÿ
-Hpython:S5806z"+Rename this variable; it shadows a builtin.(ùÌ”Ñýÿÿÿÿ
-7python:S125Œ"Remove this commented out code.(Øð·ô
-}python:S117²"`Rename this local variable "processingTimes" to match the regular expression ^[_a-z][a-z0-9_]*$.(ƒë«Åúÿÿÿÿ
-Npython:S1481Å"0Remove the unused local variable "presence_lit".(‘®Ý ûÿÿÿÿ
-mpython:S3776®"TRefactor this function to reduce its Cognitive Complexity from 17 to the 15 allowed.(žú­„
-7python:S125ã"Remove this commented out code.(ó…¬ª
+spython:S3776V"TRefactor this function to reduce its Cognitive Complexity from 35 to the 15 allowed.(à›è€8òüó–×1
+Xpython:S1135W"4Complete the task associated to this "TODO" comment.(üýµ¦ûÿÿÿÿ8òüó–×1
+Opython:S5806|"+Rename this variable; it shadows a builtin.(ùÌ”Ñýÿÿÿÿ8òüó–×1
+Cpython:S125"Remove this commented out code.(å¢è¸ùÿÿÿÿ8Àò±—×1
+„python:S117³"`Rename this local variable "processingTimes" to match the regular expression ^[_a-z][a-z0-9_]*$.(ƒë«Åúÿÿÿÿ8Àò±—×1
+Upython:S1481Æ"0Remove the unused local variable "presence_lit".(‘®Ý ûÿÿÿÿ8Àò±—×1
+tpython:S3776¯"TRefactor this function to reduce its Cognitive Complexity from 17 to the 15 allowed.(žú­„8Àò±—×1
+>python:S125ä"Remove this commented out code.(ó…¬ª8Àò±—×1
